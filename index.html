@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ambey Pooja Store – Worship Essentials | Faridabad</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --saf:#E8580A;--saf-d:#B04208;--saf-l:#FFF3EC;
+  --gold:#C8961E;--gold-l:#FDF6E3;--gold-d:#9A700F;
+  --mar:#7B1F2E;--mar-d:#4A1018;--mar-l:#F9EEF0;
+  --cream:#FBF6EE;--white:#fff;
+  --text:#2C1810;--muted:#7A5C4E;
+  --border:rgba(200,150,30,0.22);
+  --success:#1A7A4A;--success-l:#E8F5EE;
+  --danger:#8B1A1A;--danger-l:#FDE8E8;
+  --rad:14px;--rad-sm:8px;
+  --shadow:0 4px 24px rgba(123,31,46,0.10);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Poppins',sans-serif;background:var(--cream);color:var(--text);font-size:15px;line-height:1.6;}
+
+/* ── NAV ── */
+nav{background:var(--mar-d);height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;position:sticky;top:0;z-index:300;box-shadow:0 2px 20px rgba(0,0,0,0.35);}
+.nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.brand-text{font-family:'Cinzel Decorative',serif;color:#F5C842;font-size:1rem;line-height:1.2;}
+.brand-sub{font-size:0.6rem;color:rgba(245,200,66,0.65);letter-spacing:2px;text-transform:uppercase;font-family:'Poppins',sans-serif;}
+.nav-right{display:flex;align-items:center;gap:1rem;}
+.nav-links{display:flex;gap:1.25rem;}
+.nav-links a{color:rgba(255,255,255,0.8);text-decoration:none;font-size:0.82rem;font-weight:500;transition:color 0.2s;}
+.nav-links a:hover{color:#F5C842;}
+.cart-btn{background:var(--saf);color:#fff;border:none;padding:0.45rem 1.1rem;border-radius:50px;cursor:pointer;display:flex;align-items:center;gap:7px;font-family:'Poppins',sans-serif;font-size:0.85rem;font-weight:600;transition:background 0.2s;}
+.cart-btn:hover{background:var(--saf-d);}
+.cart-count{background:#fff;color:var(--saf);border-radius:50%;width:19px;height:19px;font-size:0.68rem;display:flex;align-items:center;justify-content:center;font-weight:700;}
+
+/* ── OFFER BANNER ── */
+#offer-banner{display:none;position:relative;overflow:hidden;padding:0.9rem 2rem;text-align:center;}
+.ob-inner{position:relative;z-index:1;}
+.ob-title{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:700;margin-bottom:2px;}
+.ob-sub{font-size:0.8rem;opacity:0.88;}
+.ob-badge{display:inline-block;background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4);padding:3px 14px;border-radius:50px;font-size:0.78rem;font-weight:600;margin-top:6px;}
+.ob-countdown{display:inline-flex;gap:0.5rem;align-items:center;font-size:0.75rem;margin-left:1rem;opacity:0.9;}
+.ob-dismiss{position:absolute;top:50%;right:1rem;transform:translateY(-50%);background:none;border:none;color:inherit;opacity:0.7;cursor:pointer;font-size:1.2rem;}
+.ob-pattern{position:absolute;inset:0;opacity:0.07;background-image:repeating-linear-gradient(45deg,#fff 0,#fff 1px,transparent 0,transparent 50%);background-size:10px 10px;}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(145deg,#7B1F2E 0%,#4A1018 45%,#2C1810 100%);padding:4.5rem 2rem 3.5rem;text-align:center;position:relative;overflow:hidden;}
+.hero-mandala{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0.04;}
+.hero-mandala svg{width:600px;height:600px;}
+.hero-tag{display:inline-block;background:rgba(200,150,30,0.18);border:1px solid rgba(200,150,30,0.35);color:#F5C842;font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;padding:0.35rem 1.2rem;border-radius:50px;margin-bottom:1.2rem;}
+.hero h1{font-family:'Cinzel Decorative',serif;font-size:clamp(1.6rem,5vw,3rem);color:#fff;line-height:1.25;margin-bottom:0.5rem;}
+.hero h1 em{color:#F5C842;font-style:normal;}
+.hero-sub{color:rgba(255,255,255,0.65);font-size:0.92rem;font-weight:300;margin-bottom:0.5rem;}
+.hero-loc{color:rgba(200,150,30,0.85);font-size:0.8rem;margin-bottom:2rem;}
+.hero-btns{display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;}
+.btn{padding:0.65rem 1.65rem;border-radius:50px;font-family:'Poppins',sans-serif;font-size:0.875rem;font-weight:600;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:7px;transition:all 0.2s;text-decoration:none;}
+.btn-saf{background:var(--saf);color:#fff;} .btn-saf:hover{background:var(--saf-d);transform:translateY(-2px);}
+.btn-gold{background:transparent;border:1.5px solid rgba(200,150,30,0.55);color:#F5C842;} .btn-gold:hover{background:rgba(200,150,30,0.12);transform:translateY(-2px);}
+
+/* ── STATS ── */
+.stats{background:#fff;border-bottom:1px solid var(--border);display:flex;justify-content:center;flex-wrap:wrap;}
+.stat{padding:1rem 1.75rem;text-align:center;border-right:1px solid var(--border);}
+.stat:last-child{border-right:none;}
+.stat-n{font-family:'Cinzel',serif;font-size:1.25rem;color:var(--saf);font-weight:600;}
+.stat-l{font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:1px;}
+
+/* ── SECTION ── */
+section{padding:3.5rem 1.5rem;}
+.sec-head{text-align:center;margin-bottom:2rem;}
+.sec-tag{font-size:0.68rem;letter-spacing:3px;text-transform:uppercase;color:var(--saf);font-weight:600;display:block;margin-bottom:0.45rem;}
+.sec-head h2{font-family:'Cinzel',serif;font-size:clamp(1.4rem,3.5vw,2rem);color:var(--mar);margin-bottom:0.5rem;}
+.sec-head p{color:var(--muted);font-size:0.86rem;max-width:480px;margin:0 auto;}
+
+/* ── OFFER SECTION ── */
+#offer-section{background:var(--mar-d);display:none;}
+.offer-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem;max-width:900px;margin:0 auto;}
+.offer-card{border-radius:var(--rad);overflow:hidden;position:relative;cursor:pointer;transition:transform 0.25s;}
+.offer-card:hover{transform:translateY(-4px);}
+.oc-header{padding:1.5rem;position:relative;overflow:hidden;}
+.oc-pattern{position:absolute;inset:0;opacity:0.08;background-image:repeating-linear-gradient(45deg,#fff 0,#fff 1px,transparent 0,transparent 50%);background-size:8px 8px;}
+.oc-emoji{font-size:2.5rem;display:block;margin-bottom:0.5rem;position:relative;z-index:1;}
+.oc-name{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:700;color:#fff;position:relative;z-index:1;}
+.oc-sub{font-size:0.78rem;color:rgba(255,255,255,0.75);position:relative;z-index:1;margin-top:3px;}
+.oc-body{background:#fff;padding:1rem 1.25rem;}
+.oc-desc{font-size:0.82rem;color:var(--muted);margin-bottom:0.75rem;line-height:1.55;}
+.oc-discount{font-family:'Cinzel',serif;font-size:1.4rem;color:var(--saf);font-weight:700;}
+.oc-expiry{font-size:0.75rem;color:var(--muted);}
+.oc-btn{display:block;width:100%;padding:0.55rem;background:var(--saf);color:#fff;border:none;border-radius:50px;font-family:'Poppins',sans-serif;font-weight:600;font-size:0.82rem;cursor:pointer;margin-top:0.75rem;transition:background 0.2s;}
+.oc-btn:hover{background:var(--saf-d);}
+
+/* ── PRODUCTS ── */
+#products-section{background:var(--cream);}
+.filters{display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.75rem;}
+.fpill{padding:0.38rem 1.1rem;border-radius:50px;border:1px solid var(--border);background:#fff;color:var(--muted);font-size:0.78rem;cursor:pointer;font-family:'Poppins',sans-serif;transition:all 0.18s;}
+.fpill.active,.fpill:hover{background:var(--saf);color:#fff;border-color:var(--saf);}
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:1.1rem;max-width:1100px;margin:0 auto;}
+
+.product-card{background:#fff;border:1px solid var(--border);border-radius:var(--rad);overflow:hidden;transition:all 0.25s;cursor:pointer;position:relative;}
+.product-card:hover:not(.sold-out){transform:translateY(-4px);box-shadow:0 8px 32px rgba(200,150,30,0.16);border-color:var(--gold);}
+.product-card.sold-out{opacity:0.72;}
+.p-img{height:155px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;background:linear-gradient(135deg,var(--gold-l),var(--cream));position:relative;}
+.p-img img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
+.p-img .emoji-fallback{position:relative;z-index:1;}
+.p-badge{position:absolute;top:9px;right:9px;font-size:0.65rem;font-weight:700;padding:3px 10px;border-radius:50px;z-index:2;}
+.badge-popular{background:var(--saf);color:#fff;}
+.badge-offer{background:var(--gold);color:#fff;}
+.badge-low{background:var(--mar);color:#fff;}
+.badge-sold{position:absolute;inset:0;background:rgba(44,24,16,0.65);display:flex;align-items:center;justify-content:center;z-index:3;}
+.badge-sold span{background:var(--danger);color:#fff;font-size:0.8rem;font-weight:700;padding:6px 18px;border-radius:50px;letter-spacing:1px;}
+.p-body{padding:0.9rem;}
+.p-cat{font-size:0.68rem;text-transform:uppercase;letter-spacing:1px;color:var(--saf);font-weight:600;margin-bottom:3px;}
+.p-name{font-weight:600;font-size:0.9rem;margin-bottom:3px;line-height:1.35;}
+.p-stock{font-size:0.72rem;margin-bottom:0.6rem;}
+.stock-ok{color:var(--success);}
+.stock-low{color:#B8740A;}
+.stock-out{color:var(--danger);}
+.p-foot{display:flex;justify-content:space-between;align-items:center;gap:8px;}
+.p-prices{display:flex;flex-direction:column;}
+.p-price{font-family:'Cinzel',serif;font-size:1rem;color:var(--mar);font-weight:700;line-height:1;}
+.p-mrp{font-size:0.72rem;color:var(--muted);text-decoration:line-through;}
+.p-saving{font-size:0.68rem;color:var(--success);font-weight:600;}
+.add-btn{background:var(--mar);color:#fff;border:none;width:33px;height:33px;border-radius:50%;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:all 0.18s;flex-shrink:0;}
+.add-btn:hover{background:var(--saf);transform:scale(1.1);}
+.add-btn:disabled{background:#ccc;cursor:not-allowed;transform:none;}
+.qty-ctrl{display:flex;align-items:center;gap:5px;flex-shrink:0;}
+.qty-btn{background:var(--cream);border:1px solid var(--border);width:27px;height:27px;border-radius:50%;cursor:pointer;font-size:0.85rem;display:flex;align-items:center;justify-content:center;transition:background 0.15s;}
+.qty-btn:hover{background:var(--mar-l);}
+.qty-num{font-size:0.85rem;font-weight:600;min-width:18px;text-align:center;}
+
+/* ── PRODUCT DETAIL MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:400;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity 0.2s;}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal{background:#fff;border-radius:var(--rad);width:100%;max-width:640px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 80px rgba(0,0,0,0.25);}
+.mh{background:var(--mar);padding:1rem 1.5rem;display:flex;justify-content:space-between;align-items:center;border-radius:var(--rad) var(--rad) 0 0;position:sticky;top:0;z-index:1;}
+.mh h3{font-family:'Cinzel',serif;color:#F5C842;font-size:1rem;}
+.mh-close{background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;line-height:1;}
+.mb{padding:1.5rem;}
+.pdm-img{height:220px;background:linear-gradient(135deg,var(--gold-l),var(--cream));border-radius:var(--rad-sm);display:flex;align-items:center;justify-content:center;font-size:5rem;margin-bottom:1.25rem;position:relative;overflow:hidden;}
+.pdm-img img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
+.pdm-emoji{position:relative;z-index:1;}
+.pdm-cat{font-size:0.7rem;text-transform:uppercase;letter-spacing:2px;color:var(--saf);font-weight:600;margin-bottom:4px;}
+.pdm-name{font-family:'Cinzel',serif;font-size:1.3rem;color:var(--mar);margin-bottom:0.5rem;}
+.pdm-prices{display:flex;align-items:baseline;gap:0.75rem;margin-bottom:1rem;}
+.pdm-price{font-family:'Cinzel',serif;font-size:1.6rem;color:var(--mar);font-weight:700;}
+.pdm-mrp{font-size:0.9rem;color:var(--muted);text-decoration:line-through;}
+.pdm-save{background:var(--success-l);color:var(--success);font-size:0.75rem;font-weight:600;padding:3px 10px;border-radius:50px;}
+.pdm-desc{font-size:0.87rem;color:var(--muted);line-height:1.7;margin-bottom:1.25rem;}
+.pdm-specs{background:var(--cream);border-radius:var(--rad-sm);padding:1rem;margin-bottom:1.25rem;}
+.pdm-specs h4{font-size:0.78rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:0.75rem;font-weight:600;}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;}
+.spec-item{background:#fff;border:1px solid var(--border);border-radius:var(--rad-sm);padding:0.6rem 0.75rem;}
+.spec-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:1px;font-weight:600;}
+.spec-val{font-size:0.85rem;font-weight:600;color:var(--text);}
+.pdm-dim{background:var(--cream);border-radius:var(--rad-sm);padding:1rem;margin-bottom:1.25rem;text-align:center;}
+.pdm-dim h4{font-size:0.78rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:0.75rem;font-weight:600;}
+.dim-box{display:inline-block;background:#fff;border:2px dashed var(--border);border-radius:var(--rad-sm);padding:1.25rem 2rem;font-size:0.8rem;color:var(--muted);}
+.pdm-stock-bar{margin-bottom:1rem;}
+.stock-bar-label{display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:5px;}
+.stock-bar-track{height:6px;background:var(--cream);border-radius:3px;overflow:hidden;}
+.stock-bar-fill{height:100%;border-radius:3px;transition:width 0.5s;}
+.pdm-add-btn{width:100%;padding:0.9rem;background:var(--saf);color:#fff;border:none;border-radius:50px;font-family:'Poppins',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:background 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.pdm-add-btn:hover{background:var(--saf-d);}
+.pdm-add-btn:disabled{background:#ccc;cursor:not-allowed;}
+
+/* ── CART SIDEBAR ── */
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:350;opacity:0;pointer-events:none;transition:opacity 0.25s;}
+.cart-overlay.open{opacity:1;pointer-events:all;}
+.cart-sidebar{position:fixed;right:0;top:0;bottom:0;width:min(400px,100vw);background:#fff;z-index:351;transform:translateX(100%);transition:transform 0.3s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-8px 0 40px rgba(0,0,0,0.18);}
+.cart-sidebar.open{transform:translateX(0);}
+.cart-head{background:var(--mar);color:#fff;padding:1rem 1.25rem;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;}
+.cart-head h3{font-family:'Cinzel',serif;color:#F5C842;font-size:1rem;}
+.cart-close-btn{background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;line-height:1;}
+.cart-items{flex:1;overflow-y:auto;padding:1rem;}
+.cart-empty{text-align:center;padding:3rem 1rem;color:var(--muted);}
+.cart-empty-icon{font-size:3rem;margin-bottom:0.75rem;}
+.ci{display:flex;gap:0.75rem;padding:0.75rem 0;border-bottom:1px solid var(--border);align-items:flex-start;}
+.ci-icon{font-size:1.75rem;background:var(--cream);width:48px;height:48px;border-radius:var(--rad-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;}
+.ci-icon img{width:100%;height:100%;object-fit:cover;}
+.ci-info{flex:1;min-width:0;}
+.ci-name{font-size:0.84rem;font-weight:600;margin-bottom:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ci-unit{font-size:0.75rem;color:var(--muted);}
+.ci-ctrl{display:flex;align-items:center;gap:5px;margin-top:5px;}
+.ciq{background:var(--cream);border:1px solid var(--border);width:24px;height:24px;border-radius:50%;cursor:pointer;font-size:0.8rem;display:flex;align-items:center;justify-content:center;}
+.cin{font-size:0.82rem;font-weight:600;min-width:18px;text-align:center;}
+.ci-rm{background:none;border:none;color:var(--danger);font-size:0.75rem;cursor:pointer;margin-left:auto;}
+.ci-sub{font-size:0.87rem;font-weight:700;color:var(--mar);flex-shrink:0;}
+.cart-footer{padding:1rem 1.25rem;border-top:1.5px solid var(--border);background:#fff;flex-shrink:0;}
+.free-bar{font-size:0.75rem;text-align:center;padding:0.4rem;border-radius:var(--rad-sm);margin-bottom:0.75rem;font-weight:500;}
+.free-bar.ok{background:var(--success-l);color:var(--success);}
+.free-bar.near{background:var(--gold-l);color:var(--gold-d);}
+.cs-row{display:flex;justify-content:space-between;font-size:0.85rem;padding:3px 0;}
+.cs-total{font-weight:700;font-size:0.95rem;color:var(--mar);border-top:1px solid var(--border);margin-top:6px;padding-top:8px;}
+.co-btn{width:100%;padding:0.85rem;background:var(--saf);color:#fff;border:none;border-radius:50px;font-family:'Poppins',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;margin-top:0.85rem;transition:background 0.2s;}
+.co-btn:hover{background:var(--saf-d);}
+
+/* ── CHECKOUT MODAL ── */
+.form-group{margin-bottom:0.9rem;}
+.form-group label{display:block;font-size:0.75rem;font-weight:600;color:var(--muted);margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.5px;}
+.form-group input,.form-group textarea{width:100%;padding:0.6rem 0.9rem;border:1.5px solid var(--border);border-radius:var(--rad-sm);font-family:'Poppins',sans-serif;font-size:0.875rem;color:var(--text);transition:border 0.18s;}
+.form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--saf);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;}
+.osm{background:var(--cream);border-radius:var(--rad-sm);padding:1rem;margin-bottom:1rem;border:1px solid var(--border);}
+.osm-title{font-weight:600;font-size:0.85rem;margin-bottom:0.5rem;color:var(--mar);}
+.osm-item{display:flex;justify-content:space-between;font-size:0.8rem;padding:2px 0;color:var(--muted);}
+.osm-total{display:flex;justify-content:space-between;font-weight:700;font-size:0.9rem;border-top:1px solid var(--border);padding-top:6px;margin-top:6px;color:var(--mar);}
+.pay-btn{width:100%;padding:0.9rem;background:var(--saf);color:#fff;border:none;border-radius:50px;font-family:'Poppins',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:background 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.pay-btn:hover{background:var(--saf-d);}
+.pay-btn:disabled{background:#ccc;cursor:not-allowed;}
+
+/* ── SUCCESS ── */
+#success-page{display:none;position:fixed;inset:0;background:var(--cream);z-index:500;overflow-y:auto;padding:2rem 1rem;}
+.success-wrap{max-width:520px;margin:0 auto;text-align:center;}
+.success-icon{font-size:4rem;margin-bottom:1rem;animation:pop 0.5s ease;}
+@keyframes pop{0%{transform:scale(0.3)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+.success-wrap h2{font-family:'Cinzel',serif;color:var(--mar);font-size:1.8rem;margin-bottom:0.5rem;}
+.order-id-box{background:var(--mar);color:#F5C842;font-family:'Cinzel',serif;font-size:1.05rem;padding:0.7rem 2rem;border-radius:var(--rad-sm);display:inline-block;margin:0.75rem 0 1.5rem;letter-spacing:1px;}
+.track-steps{display:flex;flex-direction:column;gap:0;}
+.ts{display:flex;gap:1rem;padding:0.7rem 0;position:relative;text-align:left;}
+.ts:not(:last-child)::before{content:'';position:absolute;left:14px;top:38px;width:2px;height:calc(100% - 10px);background:var(--border);}
+.ts-dot{width:30px;height:30px;border-radius:50%;border:2px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0;z-index:1;}
+.ts.done .ts-dot{background:var(--success);border-color:var(--success);color:#fff;}
+.ts.active .ts-dot{background:var(--saf);border-color:var(--saf);color:#fff;box-shadow:0 0 0 4px rgba(232,88,10,0.2);}
+.ts-info h4{font-size:0.88rem;font-weight:600;margin-bottom:1px;}
+.ts-info p{font-size:0.77rem;color:var(--muted);}
+
+/* ── TRACKING ── */
+#tracking-section{background:#fff;}
+.track-wrap{max-width:460px;margin:0 auto;}
+.track-input-row{display:flex;gap:0.75rem;flex-wrap:wrap;}
+.track-input-row input{flex:1;min-width:180px;padding:0.65rem 1rem;border:1.5px solid var(--border);border-radius:50px;font-family:'Poppins',sans-serif;font-size:0.88rem;}
+.track-input-row input:focus{outline:none;border-color:var(--saf);}
+
+/* ── FEEDBACK ── */
+#feedback-section{background:var(--gold-l);}
+.fb-wrap{max-width:540px;margin:0 auto;background:#fff;border-radius:var(--rad);border:1px solid var(--border);padding:2rem;}
+.stars{display:flex;gap:0.35rem;cursor:pointer;}
+.star{font-size:1.8rem;color:#ddd;transition:color 0.12s;}
+.star.on{color:#F5C842;}
+.fb-submit{width:100%;padding:0.8rem;background:var(--mar);color:#fff;border:none;border-radius:50px;font-family:'Poppins',sans-serif;font-weight:600;font-size:0.9rem;cursor:pointer;transition:background 0.2s;margin-top:0.5rem;}
+.fb-submit:hover{background:var(--mar-d);}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem;max-width:900px;margin:1.5rem auto 0;}
+.rc{background:#fff;border:1px solid var(--border);border-radius:var(--rad);padding:1.1rem;}
+.rc-stars{color:#F5C842;font-size:0.9rem;margin-bottom:0.4rem;}
+.rc-text{font-size:0.82rem;color:var(--muted);margin-bottom:0.6rem;line-height:1.55;}
+.rc-author{font-size:0.78rem;font-weight:600;color:var(--mar);}
+
+/* ── FOOTER ── */
+footer{background:var(--mar-d);color:rgba(255,255,255,0.55);text-align:center;padding:2rem 1rem;font-size:0.8rem;}
+footer strong{color:#F5C842;}
+
+/* ── FLOAT BUTTONS ── */
+.wa-float{position:fixed;bottom:1.5rem;right:1.5rem;background:#25D366;color:#fff;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem;box-shadow:0 4px 18px rgba(37,211,102,0.45);text-decoration:none;z-index:250;transition:transform 0.2s;}
+.wa-float:hover{transform:scale(1.1);}
+.admin-float{position:fixed;bottom:1.5rem;left:1.5rem;background:var(--mar);color:#F5C842;font-size:0.72rem;padding:0.4rem 0.9rem;border-radius:50px;text-decoration:none;font-weight:600;z-index:250;box-shadow:0 2px 10px rgba(0,0,0,0.2);}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:5.5rem;left:50%;transform:translateX(-50%) translateY(16px);background:var(--mar);color:#fff;padding:0.6rem 1.5rem;border-radius:50px;font-size:0.83rem;font-weight:500;z-index:600;opacity:0;transition:all 0.3s;pointer-events:none;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+@media(max-width:620px){
+  .nav-links{display:none;}
+  .form-row{grid-template-columns:1fr;}
+  section{padding:2.5rem 1rem;}
+  .hero{padding:3.5rem 1.25rem 2.75rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-brand">
+    <div><div class="brand-text">🪔 Ambey Pooja Store</div><div class="brand-sub">Worship Essentials · Faridabad</div></div>
+  </a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="#offer-section">Offers</a>
+      <a href="#products-section">Products</a>
+      <a href="#tracking-section">Track Order</a>
+      <a href="#feedback-section">Reviews</a>
+    </div>
+    <button class="cart-btn" onclick="openCart()">🛒 Cart <span class="cart-count" id="cart-count">0</span></button>
+  </div>
+</nav>
+
+<!-- OFFER BANNER -->
+<div id="offer-banner">
+  <div class="ob-pattern"></div>
+  <div class="ob-inner">
+    <span class="ob-title" id="ob-title">Navratri Mahotsav — 20% OFF Everything!</span>
+    <span class="ob-sub" id="ob-sub">Special festival discounts on all pooja essentials</span>
+    <br>
+    <span class="ob-badge" id="ob-badge">Use Offer at Checkout</span>
+    <span class="ob-countdown" id="ob-countdown"></span>
+  </div>
+  <button class="ob-dismiss" onclick="document.getElementById('offer-banner').style.display='none'">✕</button>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-mandala">
+    <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="200" cy="200" r="190" fill="none" stroke="#fff" stroke-width="0.5"/>
+      <circle cx="200" cy="200" r="150" fill="none" stroke="#fff" stroke-width="0.5"/>
+      <circle cx="200" cy="200" r="100" fill="none" stroke="#fff" stroke-width="0.5"/>
+      <circle cx="200" cy="200" r="50" fill="none" stroke="#fff" stroke-width="0.5"/>
+      <g stroke="#fff" stroke-width="0.5" fill="none">
+        <line x1="200" y1="10" x2="200" y2="390"/><line x1="10" y1="200" x2="390" y2="200"/>
+        <line x1="66" y1="66" x2="334" y2="334"/><line x1="334" y1="66" x2="66" y2="334"/>
+      </g>
+    </svg>
+  </div>
+  <div class="hero-tag">✦ Green Field Colony, Faridabad ✦</div>
+  <h1>🪔 <em>Ambey</em><br>Pooja Store</h1>
+  <p class="hero-sub">Devotion Delivered to Your Doorstep</p>
+  <p class="hero-loc">📍 Serving within 5 km · Same Day Delivery</p>
+  <div class="hero-btns">
+    <button class="btn btn-saf" onclick="scrollTo('products-section')">🛍️ Shop Now</button>
+    <a class="btn btn-gold" id="wa-hero-link">💬 WhatsApp Order</a>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><div class="stat-n">200+</div><div class="stat-l">Products</div></div>
+  <div class="stat"><div class="stat-n">500+</div><div class="stat-l">Happy Families</div></div>
+  <div class="stat"><div class="stat-n">Same Day</div><div class="stat-l">Delivery</div></div>
+  <div class="stat"><div class="stat-n" id="stat-rating">4.8★</div><div class="stat-l">Rating</div></div>
+</div>
+
+<!-- OFFERS SECTION -->
+<section id="offer-section">
+  <div class="sec-head">
+    <span class="sec-tag" style="color:#F5C842;">Festival Special</span>
+    <h2 style="color:#fff;">Festival Offers</h2>
+    <p style="color:rgba(255,255,255,0.6);">Celebrate every occasion with special pooja deals</p>
+  </div>
+  <div class="offer-cards" id="offer-cards"></div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products-section">
+  <div class="sec-head">
+    <span class="sec-tag">Our Products</span>
+    <h2>Fresh Pooja Essentials</h2>
+    <p>Pure, genuine items for your daily rituals · Real-time stock</p>
+  </div>
+  <div class="filters" id="filter-bar"></div>
+  <div class="product-grid" id="product-grid"></div>
+</section>
+
+<!-- TRACK ORDER -->
+<section id="tracking-section">
+  <div class="sec-head">
+    <span class="sec-tag">Order Status</span>
+    <h2>Track Your Order</h2>
+    <p>Enter your Order ID to see live delivery status</p>
+  </div>
+  <div class="track-wrap">
+    <div class="track-input-row">
+      <input type="text" id="track-input" placeholder="e.g. APS-100112" />
+      <button class="btn btn-saf" onclick="trackOrder()">🔍 Track</button>
+    </div>
+    <div id="track-result" style="margin-top:1.5rem;"></div>
+  </div>
+</section>
+
+<!-- FEEDBACK -->
+<section id="feedback-section">
+  <div class="sec-head">
+    <span class="sec-tag">Reviews</span>
+    <h2>Customer Feedback</h2>
+    <p>Share your experience with Ambey Pooja Store</p>
+  </div>
+  <div class="fb-wrap" id="fb-form">
+    <div class="form-group">
+      <label>Your Rating *</label>
+      <div class="stars" id="star-row">
+        <span class="star" data-v="1">★</span><span class="star" data-v="2">★</span>
+        <span class="star" data-v="3">★</span><span class="star" data-v="4">★</span><span class="star" data-v="5">★</span>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Your Name *</label><input id="fb-name" placeholder="e.g. Sunita Sharma"/></div>
+      <div class="form-group"><label>Order ID</label><input id="fb-oid" placeholder="APS-XXXXXX"/></div>
+    </div>
+    <div class="form-group"><label>Your Review *</label><textarea id="fb-msg" rows="3" placeholder="Tell us about your experience..."></textarea></div>
+    <button class="fb-submit" onclick="submitFeedback()">🙏 Submit Feedback</button>
+  </div>
+  <div id="fb-thanks" style="display:none;text-align:center;padding:2rem;"><p style="font-size:3rem">🙏</p><h3 style="font-family:'Cinzel',serif;color:var(--mar);">Thank You!</h3><p style="color:var(--muted)">Jai Mata Di! Your review has been submitted.</p></div>
+  <div class="reviews-grid" id="reviews-grid"></div>
+</section>
+
+<footer>
+  <strong>🪔 Ambey Pooja Store</strong>
+  <p style="margin:0.35rem 0;" id="footer-addr">Green Field Colony, Faridabad · 6 AM – 9 PM All Days</p>
+  <p>Serving your divine needs with devotion ❤️</p>
+</footer>
+
+<a class="wa-float" id="wa-float-link" title="WhatsApp Order">💬</a>
+<a class="admin-float" href="admin.html">⚙️ Admin Panel</a>
+<div class="toast" id="toast"></div>
+
+<!-- CART -->
+<div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+<div class="cart-sidebar" id="cart-sidebar">
+  <div class="cart-head"><h3>🛒 Your Cart</h3><button class="cart-close-btn" onclick="closeCart()">✕</button></div>
+  <div class="cart-items" id="cart-body"></div>
+  <div class="cart-footer" id="cart-footer" style="display:none;">
+    <div class="free-bar" id="free-bar"></div>
+    <div class="cs-row"><span>Subtotal</span><span id="cs-sub">₹0</span></div>
+    <div class="cs-row"><span>Delivery</span><span id="cs-del">₹30</span></div>
+    <div class="cs-row cs-total"><span>Total Payable</span><span id="cs-total">₹0</span></div>
+    <button class="co-btn" onclick="openCheckout()">Proceed to Checkout →</button>
+  </div>
+</div>
+
+<!-- PRODUCT DETAIL MODAL -->
+<div class="modal-overlay" id="detail-modal">
+  <div class="modal">
+    <div class="mh"><h3 id="dm-title">Product Details</h3><button class="mh-close" onclick="closeDetail()">✕</button></div>
+    <div class="mb" id="dm-body"></div>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="modal-overlay" id="checkout-modal">
+  <div class="modal">
+    <div class="mh"><h3>🪔 Secure Checkout</h3><button class="mh-close" onclick="closeCheckout()">✕</button></div>
+    <div class="mb">
+      <div class="osm" id="checkout-osm"></div>
+      <div class="form-row">
+        <div class="form-group"><label>Full Name *</label><input id="c-name" placeholder="Sunita Sharma"/></div>
+        <div class="form-group"><label>Phone *</label><input id="c-phone" type="tel" placeholder="98765 43210" maxlength="10"/></div>
+      </div>
+      <div class="form-group"><label>Delivery Address *</label><textarea id="c-addr" rows="2" placeholder="House No, Street, Colony (within 5 km of Green Field Colony)"></textarea></div>
+      <div class="form-group"><label>Special Instructions</label><input id="c-note" placeholder="e.g. Call before delivery"/></div>
+      <button class="pay-btn" id="pay-btn" onclick="initiatePayment()">💳 Pay Securely via Razorpay</button>
+      <p style="text-align:center;font-size:0.72rem;color:var(--muted);margin-top:0.75rem;">🔒 Secured by Razorpay · UPI · Cards · Netbanking</p>
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS PAGE -->
+<div id="success-page">
+  <div class="success-wrap">
+    <div class="success-icon">🎊</div>
+    <h2>Order Confirmed!</h2>
+    <p style="color:var(--muted);margin-bottom:0.5rem;">Your sacred items are being packed with devotion 🙏</p>
+    <div class="order-id-box" id="suc-oid">APS-XXXXXX</div>
+    <div style="background:#fff;border:1px solid var(--border);border-radius:var(--rad);padding:1.5rem;margin-bottom:1.5rem;text-align:left;">
+      <div class="track-steps" id="suc-track"></div>
+    </div>
+    <button class="btn btn-saf" onclick="document.getElementById('success-page').style.display='none'" style="margin-bottom:0.75rem;">🛍️ Continue Shopping</button><br>
+    <a id="suc-wa" class="btn btn-gold" style="border-color:var(--mar);color:var(--mar);">💬 Confirm on WhatsApp</a>
+  </div>
+</div>
+
+<script src="db.js"></script>
+<script>
+// ── GLOBALS ──
+let cart = DB.getCart();
+let selectedRating = 0;
+let activeOffer = null;
+
+const TRACK_STAGES = [
+  {label:'Order Placed', desc:'We received your order', icon:'✓'},
+  {label:'Packing', desc:'Items are being carefully packed', icon:'📦'},
+  {label:'Out for Delivery', desc:'On the way to your address', icon:'🏍️'},
+  {label:'Delivered', desc:'Delivered! Enjoy your pooja 🙏', icon:'🎉'},
+];
+
+// ── INIT ──
+function init() {
+  const s = DB.getSettings();
+  const waUrl = `https://wa.me/${s.whatsapp}?text=Namaste! I want to place an order from Ambey Pooja Store.`;
+  document.getElementById('wa-hero-link').href = waUrl;
+  document.getElementById('wa-float-link').href = waUrl;
+  document.getElementById('footer-addr').textContent = `${s.address} · ${s.hours}`;
+
+  loadOffers();
+  buildFilters();
+  renderProducts();
+  renderReviews();
+  updateCartUI();
+}
+
+// ── OFFERS ──
+function loadOffers() {
+  activeOffer = DB.getActiveOffer();
+  const offers = DB.getOffers().filter(o => o.active);
+  const offerSection = document.getElementById('offer-section');
+  const offerCards = document.getElementById('offer-cards');
+
+  if (offers.length > 0) {
+    offerSection.style.display = 'block';
+    offerCards.innerHTML = offers.map(o => `
+      <div class="offer-card" onclick="scrollTo('products-section')">
+        <div class="oc-header" style="background:${o.bannerColor}">
+          <div class="oc-pattern"></div>
+          <span class="oc-emoji">${o.emoji}</span>
+          <div class="oc-name">${o.name}</div>
+          <div class="oc-sub">${o.subtitle}</div>
+        </div>
+        <div class="oc-body">
+          <div class="oc-desc">${o.description}</div>
+          <div class="oc-discount">${o.discountType==='percent'?o.discountValue+'% OFF':'₹'+o.discountValue+' OFF'}</div>
+          <div class="oc-expiry">Valid till: ${new Date(o.endDate).toLocaleDateString('en-IN',{day:'numeric',month:'long'})}</div>
+          <button class="oc-btn">Shop Now →</button>
+        </div>
+      </div>`).join('');
+  }
+
+  if (activeOffer) {
+    const banner = document.getElementById('offer-banner');
+    banner.style.display = 'block';
+    banner.style.background = activeOffer.bannerColor;
+    banner.style.color = activeOffer.accentColor;
+    document.getElementById('ob-title').textContent = `${activeOffer.emoji} ${activeOffer.name} — ${activeOffer.discountValue}${activeOffer.discountType==='percent'?'% OFF':'₹ OFF'}!`;
+    document.getElementById('ob-sub').textContent = activeOffer.description.substring(0,80)+'...';
+    startCountdown(activeOffer.endDate);
+  }
+}
+
+function startCountdown(endDate) {
+  const el = document.getElementById('ob-countdown');
+  function tick() {
+    const diff = new Date(endDate) - new Date();
+    if (diff <= 0) { el.textContent = 'Offer Ended'; return; }
+    const d = Math.floor(diff/86400000), h = Math.floor((diff%86400000)/3600000),
+          m = Math.floor((diff%3600000)/60000), s = Math.floor((diff%60000)/1000);
+    el.textContent = `⏰ ${d}d ${h}h ${m}m ${s}s left`;
+  }
+  tick(); setInterval(tick, 1000);
+}
+
+// ── PRODUCTS ──
+function buildFilters() {
+  const cats = ['All', ...new Set(DB.getProducts().map(p=>p.category))];
+  const bar = document.getElementById('filter-bar');
+  bar.innerHTML = cats.map((c,i) =>
+    `<button class="fpill${i===0?' active':''}" onclick="filterBy('${c}',this)">${c}</button>`
+  ).join('');
+}
+
+function filterBy(cat, btn) {
+  document.querySelectorAll('.fpill').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.product-card').forEach(c=>{
+    c.style.display = (cat==='All'||c.dataset.cat===cat)?'':'none';
+  });
+}
+
+function getEffectivePrice(p) {
+  if (!activeOffer) return p.price;
+  if (activeOffer.applyTo === 'all' || activeOffer.productIds.includes(p.id)) {
+    return activeOffer.discountType === 'percent'
+      ? Math.round(p.price * (1 - activeOffer.discountValue/100))
+      : Math.max(0, p.price - activeOffer.discountValue);
+  }
+  return p.price;
+}
+
+function renderProducts() {
+  const products = DB.getProducts().filter(p=>p.active);
+  const grid = document.getElementById('product-grid');
+  grid.innerHTML = '';
+  products.forEach(p => {
+    const isSoldOut = p.stock === 0;
+    const isLow = p.stock > 0 && p.stock <= 3;
+    const effPrice = getEffectivePrice(p);
+    const hasDiscount = effPrice < p.price;
+    const saving = p.price - effPrice;
+    const imgContent = p.images && p.images[0]
+      ? `<img src="${p.images[0]}" alt="${p.name}"/><span class="emoji-fallback" style="display:none">${p.emoji}</span>`
+      : `<span class="emoji-fallback">${p.emoji}</span>`;
+
+    const card = document.createElement('div');
+    card.className = 'product-card' + (isSoldOut?' sold-out':'');
+    card.dataset.cat = p.category;
+    card.dataset.id = p.id;
+    card.innerHTML = `
+      <div class="p-img">
+        ${imgContent}
+        ${isSoldOut?'<div class="badge-sold"><span>SOLD OUT</span></div>':''}
+        ${!isSoldOut&&p.popular?'<span class="p-badge badge-popular">Popular</span>':''}
+        ${!isSoldOut&&hasDiscount?`<span class="p-badge badge-offer">${activeOffer.discountValue}% OFF</span>`:''}
+        ${!isSoldOut&&isLow?`<span class="p-badge badge-low">Only ${p.stock} left!</span>`:''}
+      </div>
+      <div class="p-body">
+        <div class="p-cat">${p.category}</div>
+        <div class="p-name">${p.name}</div>
+        <div class="p-stock ${isSoldOut?'stock-out':isLow?'stock-low':'stock-ok'}">
+          ${isSoldOut?'⚠️ Out of Stock':isLow?`⚡ Only ${p.stock} left`:`✓ In Stock (${p.stock} available)`}
+        </div>
+        <div class="p-foot">
+          <div class="p-prices">
+            <span class="p-price">₹${effPrice}</span>
+            ${p.mrp&&p.mrp>effPrice?`<span class="p-mrp">₹${p.mrp}</span>`:''}
+            ${hasDiscount?`<span class="p-saving">Save ₹${saving}</span>`:''}
+          </div>
+          <div id="pctrl-${p.id}">${getProductCtrl(p.id, isSoldOut, effPrice)}</div>
+        </div>
+      </div>`;
+    card.querySelector('.p-img').onclick = () => openDetail(p.id);
+    card.querySelector('.p-name').onclick = () => openDetail(p.id);
+    grid.appendChild(card);
+  });
+}
+
+function getProductCtrl(id, isSoldOut, effPrice) {
+  if (isSoldOut) return `<button class="add-btn" disabled title="Sold out" style="background:#ccc;cursor:not-allowed;">✕</button>`;
+  const item = cart.find(i=>i.id===id);
+  if (!item) return `<button class="add-btn" onclick="addToCart('${id}')" title="Add to cart">+</button>`;
+  return `<div class="qty-ctrl">
+    <button class="qty-btn" onclick="changeQty('${id}',-1,event)">−</button>
+    <span class="qty-num">${item.qty}</span>
+    <button class="qty-btn" onclick="changeQty('${id}',1,event)">+</button>
+  </div>`;
+}
+
+// ── PRODUCT DETAIL ──
+function openDetail(id) {
+  const p = DB.getProduct(id);
+  if (!p) return;
+  const effPrice = getEffectivePrice(p);
+  const saving = p.price - effPrice;
+  const isSoldOut = p.stock === 0;
+  const stockPct = Math.min(100, (p.stock / (p.stock + (p.sold||0))) * 100);
+  const imgHtml = p.images && p.images[0]
+    ? `<img src="${p.images[0]}" alt="${p.name}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:var(--rad-sm);">`
+    : `<span class="pdm-emoji">${p.emoji}</span>`;
+
+  document.getElementById('dm-title').textContent = p.name;
+  document.getElementById('dm-body').innerHTML = `
+    <div class="pdm-img">${imgHtml}</div>
+    <div class="pdm-cat">${p.category}</div>
+    <div class="pdm-name">${p.name}</div>
+    <div class="pdm-prices">
+      <span class="pdm-price">₹${effPrice}</span>
+      ${p.mrp&&p.mrp>effPrice?`<span class="pdm-mrp">₹${p.mrp}</span>`:''}
+      ${saving>0?`<span class="pdm-save">You save ₹${saving}${activeOffer?' ('+activeOffer.name+')':''}</span>`:''}
+    </div>
+    <p class="pdm-desc">${p.description}</p>
+    <div class="pdm-specs">
+      <h4>Product Specifications</h4>
+      <div class="spec-grid">
+        ${p.weight?`<div class="spec-item"><div class="spec-label">Weight</div><div class="spec-val">${p.weight}</div></div>`:''}
+        ${p.size?`<div class="spec-item"><div class="spec-label">Size</div><div class="spec-val">${p.size}</div></div>`:''}
+        ${p.height?`<div class="spec-item"><div class="spec-label">Height</div><div class="spec-val">${p.height}</div></div>`:''}
+        ${p.material?`<div class="spec-item"><div class="spec-label">Material</div><div class="spec-val">${p.material}</div></div>`:''}
+        ${p.color?`<div class="spec-item"><div class="spec-label">Color</div><div class="spec-val">${p.color}</div></div>`:''}
+        ${p.dimensions?`<div class="spec-item"><div class="spec-label">Dimensions</div><div class="spec-val">${p.dimensions}</div></div>`:''}
+      </div>
+    </div>
+    ${p.dimensions?`
+    <div class="pdm-dim">
+      <h4>Dimension Illustration</h4>
+      <div class="dim-box">
+        <svg width="180" height="90" viewBox="0 0 180 90" xmlns="http://www.w3.org/2000/svg">
+          <rect x="30" y="15" width="120" height="60" rx="4" fill="#FDF6E3" stroke="#C8961E" stroke-width="1.5" stroke-dasharray="4,2"/>
+          <line x1="30" y1="8" x2="150" y2="8" stroke="#7A5C4E" stroke-width="1"/>
+          <line x1="30" y1="5" x2="30" y2="11" stroke="#7A5C4E" stroke-width="1"/>
+          <line x1="150" y1="5" x2="150" y2="11" stroke="#7A5C4E" stroke-width="1"/>
+          <text x="90" y="6" text-anchor="middle" font-size="8" fill="#7A5C4E" font-family="Poppins,sans-serif">${p.dimensions.split('×')[0]?.trim()||'W'}</text>
+          <line x1="22" y1="15" x2="22" y2="75" stroke="#7A5C4E" stroke-width="1"/>
+          <line x1="19" y1="15" x2="25" y2="15" stroke="#7A5C4E" stroke-width="1"/>
+          <line x1="19" y1="75" x2="25" y2="75" stroke="#7A5C4E" stroke-width="1"/>
+          <text x="18" y="48" text-anchor="middle" font-size="8" fill="#7A5C4E" font-family="Poppins,sans-serif" transform="rotate(-90,18,48)">${p.dimensions.split('×')[1]?.trim()||'H'}</text>
+          <text x="90" y="49" text-anchor="middle" font-size="9" fill="#C8961E" font-family="Poppins,sans-serif" font-weight="600">${p.name.substring(0,15)}</text>
+        </svg>
+        <div style="font-size:0.75rem;margin-top:4px;color:var(--muted);">${p.dimensions}</div>
+      </div>
+    </div>`:''}
+    <div class="pdm-stock-bar">
+      <div class="stock-bar-label">
+        <span style="font-size:0.78rem;color:${isSoldOut?'var(--danger)':p.stock<=3?'#B8740A':'var(--success)'}">
+          ${isSoldOut?'⚠️ Sold Out':p.stock<=3?`⚡ Only ${p.stock} left!`:`✓ ${p.stock} in stock`}
+        </span>
+        <span style="font-size:0.75rem;color:var(--muted)">${p.sold||0} sold</span>
+      </div>
+      <div class="stock-bar-track">
+        <div class="stock-bar-fill" style="width:${stockPct}%;background:${isSoldOut?'var(--danger)':p.stock<=3?'#E8920A':'var(--success)'}"></div>
+      </div>
+    </div>
+    <button class="pdm-add-btn" ${isSoldOut?'disabled':''} onclick="addToCart('${p.id}');closeDetail();showToast('${p.emoji} Added to cart!')">
+      ${isSoldOut?'❌ Sold Out':'🛒 Add to Cart'}
+    </button>`;
+  document.getElementById('detail-modal').classList.add('open');
+}
+function closeDetail(){ document.getElementById('detail-modal').classList.remove('open'); }
+
+// ── CART ──
+function addToCart(id) {
+  const p = DB.getProduct(id);
+  if (!p || p.stock === 0) return;
+  const effPrice = getEffectivePrice(p);
+  const existing = cart.find(i=>i.id===id);
+  if (existing) { if(existing.qty < p.stock) existing.qty++; else { showToast('⚠️ Max stock reached'); return; } }
+  else cart.push({id, name:p.name, price:effPrice, originalPrice:p.price, emoji:p.emoji, images:p.images, qty:1});
+  DB.saveCart(cart);
+  updateCartUI();
+  refreshCtrl(id);
+  showToast(`${p.emoji} ${p.name} added!`);
+}
+
+function changeQty(id, delta, e) {
+  if(e) e.stopPropagation();
+  const p = DB.getProduct(id);
+  const idx = cart.findIndex(i=>i.id===id);
+  if(idx===-1) return;
+  cart[idx].qty += delta;
+  if(cart[idx].qty > (p?.stock||999)) cart[idx].qty = p.stock;
+  if(cart[idx].qty <= 0) cart.splice(idx,1);
+  DB.saveCart(cart);
+  updateCartUI();
+  refreshCtrl(id);
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(i=>i.id!==id);
+  DB.saveCart(cart);
+  updateCartUI();
+  refreshCtrl(id);
+}
+
+function refreshCtrl(id) {
+  const p = DB.getProduct(id);
+  const el = document.getElementById(`pctrl-${id}`);
+  if(el) el.innerHTML = getProductCtrl(id, p?.stock===0, getEffectivePrice(p||{price:0}));
+}
+
+function cartSub() { return cart.reduce((s,i)=>s+i.price*i.qty,0); }
+function deliveryFee() { const s=DB.getSettings(); return cartSub()>=s.deliveryFree?0:s.deliveryCharge; }
+function grandTotal() { return cartSub()+deliveryFee(); }
+
+function updateCartUI() {
+  const count = cart.reduce((s,i)=>s+i.qty,0);
+  document.getElementById('cart-count').textContent = count;
+  const body = document.getElementById('cart-body');
+  const footer = document.getElementById('cart-footer');
+  if(cart.length===0){
+    body.innerHTML=`<div class="cart-empty"><div class="cart-empty-icon">🛒</div><b>Cart is empty</b><br><small style="color:var(--muted)">Add items to start shopping</small></div>`;
+    footer.style.display='none'; return;
+  }
+  footer.style.display='block';
+  body.innerHTML=cart.map(i=>{
+    const imgEl = i.images&&i.images[0]?`<img src="${i.images[0]}" alt="${i.name}"/>`:`${i.emoji}`;
+    return `<div class="ci">
+      <div class="ci-icon">${imgEl}</div>
+      <div class="ci-info">
+        <div class="ci-name">${i.name}</div>
+        <div class="ci-unit">₹${i.price} each</div>
+        <div class="ci-ctrl">
+          <button class="ciq" onclick="changeQty('${i.id}',-1,event)">−</button>
+          <span class="cin">${i.qty}</span>
+          <button class="ciq" onclick="changeQty('${i.id}',1,event)">+</button>
+          <button class="ci-rm" onclick="removeFromCart('${i.id}')">✕ Remove</button>
+        </div>
+      </div>
+      <div class="ci-sub">₹${i.price*i.qty}</div>
+    </div>`;
+  }).join('');
+
+  const sub=cartSub(), del=deliveryFee(), total=grandTotal();
+  const s=DB.getSettings();
+  document.getElementById('cs-sub').textContent=`₹${sub}`;
+  document.getElementById('cs-del').textContent=del===0?'🎉 Free':'₹'+del;
+  document.getElementById('cs-total').textContent=`₹${total}`;
+  const left=s.deliveryFree-sub;
+  const bar=document.getElementById('free-bar');
+  if(left>0){bar.className='free-bar near';bar.textContent=`Add ₹${left} more for FREE delivery!`;}
+  else{bar.className='free-bar ok';bar.textContent=`🎉 You got FREE delivery!`;}
+}
+
+function openCart(){ document.getElementById('cart-overlay').classList.add('open');document.getElementById('cart-sidebar').classList.add('open'); }
+function closeCart(){ document.getElementById('cart-overlay').classList.remove('open');document.getElementById('cart-sidebar').classList.remove('open'); }
+
+// ── CHECKOUT ──
+function openCheckout(){
+  closeCart();
+  const osm=document.getElementById('checkout-osm');
+  osm.innerHTML=`<div class="osm-title">Order Summary</div>
+    ${cart.map(i=>`<div class="osm-item"><span>${i.emoji} ${i.name} × ${i.qty}</span><span>₹${i.price*i.qty}</span></div>`).join('')}
+    ${activeOffer?`<div class="osm-item" style="color:var(--success)"><span>🎉 ${activeOffer.name}</span><span>Applied</span></div>`:''}
+    <div class="osm-item"><span>Delivery</span><span>${deliveryFee()===0?'Free':'₹'+deliveryFee()}</span></div>
+    <div class="osm-total"><span>Total</span><span>₹${grandTotal()}</span></div>`;
+  document.getElementById('checkout-modal').classList.add('open');
+}
+function closeCheckout(){ document.getElementById('checkout-modal').classList.remove('open'); }
+
+function initiatePayment(){
+  const name=document.getElementById('c-name').value.trim();
+  const phone=document.getElementById('c-phone').value.trim();
+  const addr=document.getElementById('c-addr').value.trim();
+  if(!name||!phone||!addr){showToast('⚠️ Fill all required fields');return;}
+  if(phone.length!==10||isNaN(phone)){showToast('⚠️ Enter valid 10-digit phone');return;}
+  const s=DB.getSettings();
+  const btn=document.getElementById('pay-btn');
+  btn.disabled=true;btn.textContent='⏳ Opening payment...';
+  const options={
+    key:s.razorpayKey,amount:grandTotal()*100,currency:'INR',
+    name:'Ambey Pooja Store',description:'Pooja Essentials Order',
+    prefill:{name,contact:'91'+phone},theme:{color:'#E8580A'},
+    handler:function(resp){ onPaymentSuccess(resp,{name,phone,addr,note:document.getElementById('c-note').value}); },
+    modal:{ondismiss:()=>{btn.disabled=false;btn.innerHTML='💳 Pay Securely via Razorpay';}}
+  };
+  try{ new Razorpay(options).open(); }
+  catch(e){ // Demo mode fallback
+    onPaymentSuccess({razorpay_payment_id:'DEMO_'+Date.now()},{name,phone,addr,note:document.getElementById('c-note').value});
+  }
+}
+
+function onPaymentSuccess(rzpResp, customer){
+  const order=DB.addOrder({customer,items:cart,subtotal:cartSub(),delivery:deliveryFee(),total:grandTotal(),paymentId:rzpResp.razorpay_payment_id,offerApplied:activeOffer?.name||''});
+  postToSheets(order);
+  closeCheckout();
+  cart=[];DB.saveCart(cart);
+  updateCartUI();
+  renderProducts(); // refresh stock display
+  showSuccessPage(order);
+}
+
+function postToSheets(order){
+  const url=DB.getSettings().sheetsUrl;
+  if(url&&!url.includes('XXXX')){
+    fetch(url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'saveOrder',...order})}).catch(()=>{});
+  }
+}
+
+function showSuccessPage(order){
+  document.getElementById('suc-oid').textContent=order.id;
+  document.getElementById('suc-wa').href=`https://wa.me/${DB.getSettings().whatsapp}?text=Namaste! My Order ID: ${order.id}`;
+  document.getElementById('suc-track').innerHTML=TRACK_STAGES.map((s,i)=>`
+    <div class="ts ${i===0?'active':''}">
+      <div class="ts-dot">${i===0?'✓':s.icon}</div>
+      <div class="ts-info"><h4>${s.label}</h4><p>${i===0?s.desc:'Waiting...'}</p></div>
+    </div>`).join('');
+  document.getElementById('success-page').style.display='block';
+}
+
+// ── TRACKING ──
+function trackOrder(){
+  const id=document.getElementById('track-input').value.trim().toUpperCase();
+  const res=document.getElementById('track-result');
+  if(!id){res.innerHTML='<p style="color:var(--saf);text-align:center">Please enter an Order ID</p>';return;}
+  const order=DB.getOrders().find(o=>o.id===id);
+  if(!order){res.innerHTML='<p style="text-align:center;color:var(--muted)">Order not found. Check the ID and try again.</p>';return;}
+  const si=['Placed','Packing','Out for Delivery','Delivered'].indexOf(order.status);
+  res.innerHTML=`<div style="background:#fff;border:1px solid var(--border);border-radius:var(--rad);padding:1.5rem;">
+    <p style="font-size:0.8rem;color:var(--muted);margin-bottom:1rem;">Order <strong>${order.id}</strong> · ${order.customer?.name} · ₹${order.total}</p>
+    <div class="track-steps">${TRACK_STAGES.map((s,i)=>`
+      <div class="ts ${i<si?'done':i===si?'active':''}">
+        <div class="ts-dot">${i<=si?'✓':s.icon}</div>
+        <div class="ts-info"><h4>${s.label}</h4><p>${i===si?s.desc:i<si?'Completed':'—'}</p></div>
+      </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+// ── FEEDBACK ──
+function renderReviews(){
+  const approved=DB.getFeedback().filter(f=>f.approved);
+  document.getElementById('reviews-grid').innerHTML=approved.map(f=>`
+    <div class="rc">
+      <div class="rc-stars">${'★'.repeat(f.rating)}${'☆'.repeat(5-f.rating)}</div>
+      <div class="rc-text">"${f.message}"</div>
+      <div class="rc-author">— ${f.name}${f.orderId?' · '+f.orderId:''}</div>
+    </div>`).join('');
+}
+
+document.querySelectorAll('.star').forEach(s=>{
+  s.onmouseover=()=>highlightStars(+s.dataset.v);
+  s.onmouseout=()=>highlightStars(selectedRating);
+  s.onclick=()=>{selectedRating=+s.dataset.v;highlightStars(selectedRating);};
+});
+function highlightStars(n){ document.querySelectorAll('.star').forEach((s,i)=>s.classList.toggle('on',i<n)); }
+
+function submitFeedback(){
+  const name=document.getElementById('fb-name').value.trim();
+  const msg=document.getElementById('fb-msg').value.trim();
+  if(!selectedRating){showToast('⭐ Please select a rating');return;}
+  if(!name){showToast('✏️ Please enter your name');return;}
+  if(!msg){showToast('📝 Please write your review');return;}
+  DB.addFeedback({name,rating:selectedRating,message:msg,orderId:document.getElementById('fb-oid').value});
+  document.getElementById('fb-form').style.display='none';
+  document.getElementById('fb-thanks').style.display='block';
+}
+
+// ── UTILS ──
+function scrollTo(id){ document.getElementById(id).scrollIntoView({behavior:'smooth'}); }
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+// ── START ──
+init();
+</script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</body>
+</html>

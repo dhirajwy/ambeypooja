@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel – Ambey Pooja Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mar:#7B1F2E;--mar-d:#4A1018;--mar-l:#F9EEF0;
+  --saf:#E8580A;--saf-d:#B04208;--saf-l:#FFF3EC;
+  --gold:#C8961E;--gold-l:#FDF6E3;
+  --cream:#FBF6EE;--white:#fff;
+  --text:#2C1810;--muted:#7A5C4E;
+  --border:rgba(200,150,30,0.22);
+  --success:#1A7A4A;--success-l:#E8F5EE;
+  --warn:#92600A;--warn-l:#FDF0DC;
+  --danger:#8B1A1A;--danger-l:#FDE8E8;
+  --info:#1A4A8B;--info-l:#E8EEF9;
+  --rad:12px;--rad-sm:8px;
+  --shadow:0 2px 16px rgba(123,31,46,0.10);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Poppins',sans-serif;background:#F4EEE8;color:var(--text);font-size:14px;line-height:1.5;}
+
+/* ── NAV ── */
+nav{background:var(--mar-d);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 1.25rem;position:sticky;top:0;z-index:300;box-shadow:0 2px 12px rgba(0,0,0,0.3);}
+.nav-brand{font-family:'Cinzel',serif;color:#F5C842;font-size:1rem;display:flex;align-items:center;gap:8px;}
+.nav-right{display:flex;align-items:center;gap:1rem;}
+.nav-right a{color:rgba(255,255,255,0.7);font-size:0.8rem;text-decoration:none;}
+.nav-right a:hover{color:#F5C842;}
+
+/* ── LAYOUT ── */
+.layout{display:grid;grid-template-columns:210px 1fr;min-height:calc(100vh - 54px);}
+.sidebar{background:#fff;border-right:1px solid var(--border);padding:0.75rem 0;overflow-y:auto;}
+.sb-group{padding:0.5rem 1rem 0.2rem;font-size:0.65rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-top:0.5rem;}
+.sb-item{display:flex;align-items:center;gap:9px;padding:0.55rem 1.1rem;color:var(--text);text-decoration:none;font-size:0.83rem;border-left:3px solid transparent;cursor:pointer;transition:all 0.15s;user-select:none;}
+.sb-item:hover{background:var(--saf-l);color:var(--saf);}
+.sb-item.active{background:var(--saf-l);color:var(--saf);border-left-color:var(--saf);font-weight:600;}
+.sb-icon{font-size:1rem;width:20px;text-align:center;flex-shrink:0;}
+.sb-badge{margin-left:auto;background:var(--saf);color:#fff;font-size:0.65rem;padding:1px 7px;border-radius:50px;font-weight:700;}
+
+/* ── MAIN ── */
+.main{padding:1.5rem;overflow-y:auto;max-height:calc(100vh - 54px);}
+.page{display:none;} .page.show{display:block;}
+.pg-title{font-family:'Cinzel',serif;font-size:1.2rem;color:var(--mar);margin-bottom:1.25rem;display:flex;align-items:center;gap:10px;}
+.pg-title .pg-actions{margin-left:auto;display:flex;gap:0.5rem;}
+
+/* ── BUTTONS ── */
+.btn{padding:0.5rem 1.1rem;border-radius:50px;font-family:'Poppins',sans-serif;font-size:0.82rem;font-weight:600;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:6px;transition:all 0.18s;}
+.btn-saf{background:var(--saf);color:#fff;} .btn-saf:hover{background:var(--saf-d);}
+.btn-mar{background:var(--mar);color:#fff;} .btn-mar:hover{background:var(--mar-d);}
+.btn-ghost{background:#fff;border:1px solid var(--border);color:var(--text);} .btn-ghost:hover{border-color:var(--saf);color:var(--saf);}
+.btn-danger{background:var(--danger-l);color:var(--danger);border:1px solid var(--danger);} .btn-danger:hover{background:var(--danger);color:#fff;}
+.btn-success{background:var(--success-l);color:var(--success);border:1px solid var(--success);} .btn-success:hover{background:var(--success);color:#fff;}
+.btn-sm{padding:0.3rem 0.75rem;font-size:0.75rem;}
+
+/* ── METRICS ── */
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:1rem;margin-bottom:1.5rem;}
+.mc{background:#fff;border:1px solid var(--border);border-radius:var(--rad);padding:1rem;position:relative;overflow:hidden;}
+.mc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.mc.saf::before{background:var(--saf);}
+.mc.mar::before{background:var(--mar);}
+.mc.success::before{background:var(--success);}
+.mc.gold::before{background:var(--gold);}
+.mc-icon{font-size:1.4rem;margin-bottom:0.4rem;}
+.mc-val{font-family:'Cinzel',serif;font-size:1.5rem;font-weight:600;color:var(--mar);line-height:1;}
+.mc-label{font-size:0.7rem;color:var(--muted);margin-top:3px;text-transform:uppercase;letter-spacing:0.5px;}
+.mc-badge{font-size:0.68rem;padding:2px 8px;border-radius:50px;margin-top:6px;display:inline-block;}
+.mc-badge.ok{background:var(--success-l);color:var(--success);}
+.mc-badge.warn{background:var(--warn-l);color:var(--warn);}
+
+/* ── CARDS ── */
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--rad);overflow:hidden;margin-bottom:1.25rem;box-shadow:var(--shadow);}
+.card-head{padding:0.85rem 1.1rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);background:var(--cream);}
+.card-head h3{font-weight:600;font-size:0.9rem;}
+.card-body{padding:1.1rem;}
+
+/* ── TABLE ── */
+.tbl-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:0.83rem;}
+th{background:var(--cream);padding:0.65rem 0.9rem;text-align:left;font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);white-space:nowrap;}
+td{padding:0.65rem 0.9rem;border-bottom:1px solid var(--border);vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:rgba(251,246,238,0.6);}
+.search-bar{padding:0.42rem 0.9rem;border:1px solid var(--border);border-radius:50px;font-family:'Poppins',sans-serif;font-size:0.8rem;width:200px;}
+.search-bar:focus{outline:none;border-color:var(--saf);}
+
+/* ── STATUS PILLS ── */
+.pill{display:inline-block;padding:3px 10px;border-radius:50px;font-size:0.72rem;font-weight:600;}
+.pill-Placed{background:var(--saf-l);color:var(--saf);}
+.pill-Packing{background:var(--warn-l);color:var(--warn);}
+.pill-Out{background:var(--info-l);color:var(--info);}
+.pill-Delivered{background:var(--success-l);color:var(--success);}
+.pill-Cancelled{background:var(--danger-l);color:var(--danger);}
+.pill-active{background:var(--success-l);color:var(--success);}
+.pill-inactive{background:var(--danger-l);color:var(--danger);}
+
+/* ── STATUS SELECT ── */
+select.status-sel{border:1px solid var(--border);border-radius:6px;padding:3px 6px;font-family:'Poppins',sans-serif;font-size:0.78rem;background:#fff;cursor:pointer;}
+select.status-sel:focus{outline:none;border-color:var(--saf);}
+
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:400;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity 0.2s;}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal{background:#fff;border-radius:var(--rad);width:100%;max-width:640px;max-height:92vh;overflow-y:auto;box-shadow:0 20px 80px rgba(0,0,0,0.25);}
+.mh{background:var(--mar);padding:1rem 1.25rem;display:flex;justify-content:space-between;align-items:center;border-radius:var(--rad) var(--rad) 0 0;position:sticky;top:0;}
+.mh h3{font-family:'Cinzel',serif;color:#F5C842;font-size:0.95rem;}
+.mh button{background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer;line-height:1;}
+.mb{padding:1.25rem;}
+
+/* ── FORM ── */
+.fg{margin-bottom:0.9rem;}
+.fg label{display:block;font-size:0.73rem;font-weight:600;color:var(--muted);margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.5px;}
+.fg input,.fg textarea,.fg select{width:100%;padding:0.55rem 0.85rem;border:1.5px solid var(--border);border-radius:var(--rad-sm);font-family:'Poppins',sans-serif;font-size:0.875rem;color:var(--text);background:#fff;transition:border 0.18s;}
+.fg input:focus,.fg textarea:focus,.fg select:focus{outline:none;border-color:var(--saf);}
+.fg textarea{resize:vertical;min-height:70px;}
+.fg-row{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;}
+.fg-row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.75rem;}
+.fg-hint{font-size:0.7rem;color:var(--muted);margin-top:3px;}
+.section-divider{font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--muted);padding:0.5rem 0;border-bottom:1px solid var(--border);margin:0.75rem 0 1rem;}
+
+/* ── IMAGE UPLOAD ── */
+.img-upload-zone{border:2px dashed var(--border);border-radius:var(--rad);padding:1.5rem;text-align:center;cursor:pointer;transition:all 0.2s;background:var(--cream);}
+.img-upload-zone:hover{border-color:var(--saf);background:var(--saf-l);}
+.img-upload-zone.drag{border-color:var(--saf);background:var(--saf-l);}
+.img-upload-zone input{display:none;}
+.img-preview-grid{display:flex;gap:0.6rem;flex-wrap:wrap;margin-top:0.75rem;}
+.img-thumb{position:relative;width:75px;height:75px;border-radius:var(--rad-sm);overflow:hidden;border:1px solid var(--border);}
+.img-thumb img{width:100%;height:100%;object-fit:cover;}
+.img-thumb .rm-img{position:absolute;top:2px;right:2px;background:var(--danger);color:#fff;border:none;border-radius:50%;width:18px;height:18px;font-size:0.65rem;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+
+/* ── INVENTORY BARS ── */
+.inv-bar-wrap{margin-top:4px;}
+.inv-bar-track{height:5px;background:var(--cream);border-radius:3px;overflow:hidden;margin-top:2px;}
+.inv-bar-fill{height:100%;border-radius:3px;transition:width 0.5s;}
+.inv-edit-row{display:flex;align-items:center;gap:6px;}
+.inv-input{width:70px;padding:3px 8px;border:1px solid var(--border);border-radius:6px;font-family:'Poppins',sans-serif;font-size:0.8rem;text-align:center;}
+.inv-input:focus{outline:none;border-color:var(--saf);}
+
+/* ── OFFERS ── */
+.offer-card-admin{background:#fff;border:1px solid var(--border);border-radius:var(--rad);overflow:hidden;margin-bottom:1rem;}
+.oca-header{padding:1rem 1.25rem;display:flex;align-items:center;gap:12px;}
+.oca-emoji{font-size:2rem;}
+.oca-info{flex:1;}
+.oca-name{font-weight:600;font-size:0.9rem;}
+.oca-dates{font-size:0.76rem;color:var(--muted);margin-top:2px;}
+.oca-actions{display:flex;gap:0.5rem;align-items:center;}
+.oca-body{border-top:1px solid var(--border);padding:0.85rem 1.25rem;background:var(--cream);}
+.oca-stat{font-size:0.8rem;color:var(--muted);}
+
+/* ── FEEDBACK ADMIN ── */
+.fb-card{background:#fff;border:1px solid var(--border);border-radius:var(--rad);padding:1rem;margin-bottom:0.85rem;}
+.fb-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem;}
+.fb-stars{color:#F5C842;font-size:0.88rem;}
+.fb-name{font-weight:600;font-size:0.88rem;}
+.fb-time{font-size:0.72rem;color:var(--muted);}
+.fb-msg{font-size:0.82rem;color:var(--muted);margin-bottom:0.6rem;line-height:1.55;}
+.fb-actions{display:flex;gap:0.5rem;}
+
+/* ── SETTINGS ── */
+.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
+.settings-section{background:#fff;border:1px solid var(--border);border-radius:var(--rad);padding:1.25rem;}
+.settings-section h4{font-weight:600;font-size:0.88rem;margin-bottom:0.75rem;color:var(--mar);border-bottom:1px solid var(--border);padding-bottom:0.5rem;}
+.save-row{display:flex;justify-content:flex-end;margin-top:1rem;}
+.alert{padding:0.65rem 1rem;border-radius:var(--rad-sm);font-size:0.82rem;margin-bottom:1rem;}
+.alert-info{background:var(--info-l);color:var(--info);}
+.alert-success{background:var(--success-l);color:var(--success);}
+
+/* ── CODE BLOCK ── */
+.code-block{background:#1e1e1e;border-radius:var(--rad-sm);padding:1rem;overflow-x:auto;}
+.code-block pre{color:#98c379;font-size:0.72rem;line-height:1.7;font-family:monospace;white-space:pre-wrap;}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(16px);background:var(--mar);color:#fff;padding:0.6rem 1.5rem;border-radius:50px;font-size:0.82rem;font-weight:500;z-index:999;opacity:0;transition:all 0.3s;pointer-events:none;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ── TOGGLE ── */
+.toggle-switch{display:flex;align-items:center;gap:8px;cursor:pointer;}
+.toggle-switch input{width:36px;height:20px;appearance:none;background:#ddd;border-radius:10px;cursor:pointer;transition:background 0.2s;position:relative;}
+.toggle-switch input:checked{background:var(--success);}
+.toggle-switch input::after{content:'';position:absolute;width:16px;height:16px;background:#fff;border-radius:50%;top:2px;left:2px;transition:left 0.2s;}
+.toggle-switch input:checked::after{left:18px;}
+.toggle-label{font-size:0.8rem;}
+
+@media(max-width:700px){
+  .layout{grid-template-columns:1fr;}
+  .sidebar{display:none;}
+  .fg-row,.fg-row3{grid-template-columns:1fr;}
+  .settings-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">⚙️ Ambey Pooja Store — Admin</div>
+  <div class="nav-right">
+    <a href="index.html" target="_blank">🏪 View Store ↗</a>
+    <span style="color:rgba(255,255,255,0.3)">|</span>
+    <span style="color:rgba(255,255,255,0.65);font-size:0.8rem;">👤 Pooja (Admin)</span>
+  </div>
+</nav>
+
+<div class="layout">
+
+<!-- ── SIDEBAR ── -->
+<div class="sidebar">
+  <div class="sb-group">Overview</div>
+  <div class="sb-item active" onclick="showPage('dashboard',this)"><span class="sb-icon">📊</span> Dashboard</div>
+  <div class="sb-group">Catalogue</div>
+  <div class="sb-item" onclick="showPage('products',this)"><span class="sb-icon">🛍️</span> Products <span class="sb-badge" id="sb-prod-count">0</span></div>
+  <div class="sb-item" onclick="showPage('inventory',this)"><span class="sb-icon">📦</span> Inventory</div>
+  <div class="sb-group">Sales</div>
+  <div class="sb-item" onclick="showPage('orders',this)"><span class="sb-icon">📋</span> Orders <span class="sb-badge" id="sb-order-badge">0</span></div>
+  <div class="sb-group">Marketing</div>
+  <div class="sb-item" onclick="showPage('offers',this)"><span class="sb-icon">🎉</span> Festival Offers</div>
+  <div class="sb-group">Customers</div>
+  <div class="sb-item" onclick="showPage('feedback',this)"><span class="sb-icon">⭐</span> Feedback <span class="sb-badge" id="sb-fb-badge">0</span></div>
+  <div class="sb-group">Config</div>
+  <div class="sb-item" onclick="showPage('settings',this)"><span class="sb-icon">🔧</span> Settings</div>
+  <div class="sb-item" onclick="showPage('setup',this)"><span class="sb-icon">📖</span> Setup Guide</div>
+</div>
+
+<!-- ── MAIN ── -->
+<div class="main">
+
+<!-- ═══ DASHBOARD ═══ -->
+<div class="page show" id="page-dashboard">
+  <div class="pg-title">📊 Dashboard</div>
+  <div class="metrics" id="dash-metrics"></div>
+  <div class="card">
+    <div class="card-head"><h3>📋 Recent Orders</h3><button class="btn btn-ghost btn-sm" onclick="showPage('orders',document.querySelector('[onclick*=orders]'))">View All →</button></div>
+    <div class="card-body" style="padding:0;"><div class="tbl-wrap"><table id="dash-orders-table"></table></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;">
+    <div class="card">
+      <div class="card-head"><h3>⚠️ Low Stock Alerts</h3></div>
+      <div class="card-body" id="low-stock-list" style="padding:0.75rem;"></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h3>🎉 Active Offers</h3></div>
+      <div class="card-body" id="active-offers-list" style="padding:0.75rem;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PRODUCTS ═══ -->
+<div class="page" id="page-products">
+  <div class="pg-title">🛍️ Products
+    <div class="pg-actions"><button class="btn btn-saf" onclick="openProductModal()">+ Add Product</button></div>
+  </div>
+  <div class="card">
+    <div class="card-head"><h3>All Products</h3>
+      <div style="display:flex;gap:0.75rem;align-items:center;">
+        <input class="search-bar" placeholder="Search products..." oninput="filterTable('products-table',this.value)"/>
+      </div>
+    </div>
+    <div class="card-body" style="padding:0;"><div class="tbl-wrap"><table id="products-table"></table></div></div>
+  </div>
+</div>
+
+<!-- ═══ INVENTORY ═══ -->
+<div class="page" id="page-inventory">
+  <div class="pg-title">📦 Inventory Management</div>
+  <div class="alert alert-info">💡 Edit stock quantities directly in the table. Changes reflect instantly on the store — products with 0 stock show as "Sold Out" automatically.</div>
+  <div class="card">
+    <div class="card-head"><h3>Stock Levels</h3>
+      <input class="search-bar" placeholder="Search..." oninput="filterTable('inv-table',this.value)"/>
+    </div>
+    <div class="card-body" style="padding:0;"><div class="tbl-wrap"><table id="inv-table"></table></div></div>
+  </div>
+</div>
+
+<!-- ═══ ORDERS ═══ -->
+<div class="page" id="page-orders">
+  <div class="pg-title">📋 Orders</div>
+  <div class="alert alert-info">💡 Change order status here. Customers can track updated status by entering their Order ID on the store.</div>
+  <div class="card">
+    <div class="card-head"><h3>All Orders</h3>
+      <input class="search-bar" placeholder="Search by ID / name..." oninput="filterTable('orders-table',this.value)"/>
+    </div>
+    <div class="card-body" style="padding:0;"><div class="tbl-wrap"><table id="orders-table"></table></div></div>
+  </div>
+</div>
+
+<!-- ═══ OFFERS ═══ -->
+<div class="page" id="page-offers">
+  <div class="pg-title">🎉 Festival Offers
+    <div class="pg-actions"><button class="btn btn-saf" onclick="openOfferModal()">+ Create Offer</button></div>
+  </div>
+  <div id="offers-list"></div>
+</div>
+
+<!-- ═══ FEEDBACK ═══ -->
+<div class="page" id="page-feedback">
+  <div class="pg-title">⭐ Customer Feedback</div>
+  <div class="alert alert-info">💡 Approve reviews to show them on the store. Disapprove to hide from customers.</div>
+  <div id="feedback-list"></div>
+</div>
+
+<!-- ═══ SETTINGS ═══ -->
+<div class="page" id="page-settings">
+  <div class="pg-title">🔧 Store Settings</div>
+  <div class="settings-grid">
+    <div class="settings-section">
+      <h4>🏪 Store Info</h4>
+      <div class="fg"><label>Store Name</label><input id="s-name"/></div>
+      <div class="fg"><label>Tagline</label><input id="s-tagline"/></div>
+      <div class="fg"><label>Address</label><input id="s-address"/></div>
+      <div class="fg"><label>Hours</label><input id="s-hours"/></div>
+      <div class="save-row"><button class="btn btn-mar" onclick="saveSettingsSection('store')">💾 Save</button></div>
+    </div>
+    <div class="settings-section">
+      <h4>📱 Contact & Payment</h4>
+      <div class="fg"><label>WhatsApp Number (with 91)</label><input id="s-wa" placeholder="919999999999"/></div>
+      <div class="fg"><label>UPI ID</label><input id="s-upi"/></div>
+      <div class="fg"><label>Razorpay Key ID</label><input id="s-rzp" placeholder="rzp_live_..."/></div>
+      <div class="fg"><label>Google Sheets Web App URL</label><input id="s-sheets" placeholder="https://script.google.com/..."/></div>
+      <div class="save-row"><button class="btn btn-mar" onclick="saveSettingsSection('payment')">💾 Save</button></div>
+    </div>
+    <div class="settings-section">
+      <h4>🚚 Delivery</h4>
+      <div class="fg"><label>Delivery Charge (₹)</label><input type="number" id="s-del-charge"/></div>
+      <div class="fg"><label>Free Delivery Above (₹)</label><input type="number" id="s-del-free"/></div>
+      <div class="fg"><label>Delivery Radius</label><input id="s-del-radius"/></div>
+      <div class="save-row"><button class="btn btn-mar" onclick="saveSettingsSection('delivery')">💾 Save</button></div>
+    </div>
+    <div class="settings-section">
+      <h4>⚠️ Danger Zone</h4>
+      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem;">These actions cannot be undone.</p>
+      <button class="btn btn-danger" style="width:100%;margin-bottom:0.5rem;" onclick="if(confirm('Reset ALL products to demo data?'))resetProducts()">🔄 Reset Products to Demo</button>
+      <button class="btn btn-danger" style="width:100%;margin-bottom:0.5rem;" onclick="if(confirm('Delete ALL orders?')){DB.saveOrders([]);renderOrders();showToast('Orders cleared');}">🗑️ Clear All Orders</button>
+      <button class="btn btn-danger" style="width:100%;" onclick="if(confirm('Clear ALL data? This cannot be undone!')){localStorage.clear();location.reload();}">⚠️ Reset Entire Store</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SETUP GUIDE ═══ -->
+<div class="page" id="page-setup">
+  <div class="pg-title">📖 Setup Guide</div>
+  <div style="max-width:680px;">
+    <div class="card" style="margin-bottom:1.25rem;">
+      <div class="card-head"><h3>Step 1 — Razorpay (Payment Gateway)</h3></div>
+      <div class="card-body">
+        <ol style="padding-left:1.2rem;line-height:2.2;font-size:0.86rem;color:var(--muted);">
+          <li>Go to <a href="https://razorpay.com" target="_blank" style="color:var(--saf)">razorpay.com</a> → Sign Up (free account)</li>
+          <li>Complete KYC with Aadhaar + PAN + Bank account details</li>
+          <li>Go to <strong style="color:var(--text)">Settings → API Keys → Generate Key</strong></li>
+          <li>Copy the <strong>Key ID</strong> (starts with rzp_live_...)</li>
+          <li>Paste in Settings → Payment section above</li>
+        </ol>
+        <div class="alert alert-info" style="margin-top:0.75rem;">💰 Cost: ₹0 setup fee. Only 2% charged per successful transaction.</div>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:1.25rem;">
+      <div class="card-head"><h3>Step 2 — Google Sheets Database</h3></div>
+      <div class="card-body">
+        <ol style="padding-left:1.2rem;line-height:2.2;font-size:0.86rem;color:var(--muted);">
+          <li>Create a new Google Sheet named <strong>AmbeyStoerDB</strong></li>
+          <li>Create 2 tabs: <strong>Orders</strong> and <strong>Feedback</strong></li>
+          <li>Go to Extensions → Apps Script → paste code below</li>
+          <li>Deploy → New Deployment → Web App → Access: Anyone</li>
+          <li>Copy Web App URL → paste in Settings → Payment section</li>
+        </ol>
+        <div class="code-block" style="margin-top:0.75rem;">
+          <pre>const SS = SpreadsheetApp.getActiveSpreadsheet();
+function doPost(e) {
+  const d = JSON.parse(e.postData.contents);
+  if(d.action==='saveOrder') {
+    SS.getSheetByName('Orders').appendRow([
+      d.id, d.customer.name, d.customer.phone,
+      d.customer.addr, d.items.map(i=>i.name+'×'+i.qty).join(', '),
+      d.total, d.paymentId, 'Placed', new Date()]);
+  }
+  if(d.action==='saveFeedback') {
+    SS.getSheetByName('Feedback').appendRow([
+      d.name, d.rating, d.message, d.orderId, new Date()]);
+  }
+  if(d.action==='updateStatus') {
+    const rows=SS.getSheetByName('Orders').getDataRange().getValues();
+    for(let i=1;i&lt;rows.length;i++) {
+      if(rows[i][0]===d.orderId) {
+        SS.getSheetByName('Orders').getRange(i+1,8).setValue(d.status); break;
+      }
+    }
+  }
+  return ContentService.createTextOutput('OK');
+}
+function doGet(e) {
+  if(e.parameter.action==='getOrder') {
+    const rows=SS.getSheetByName('Orders').getDataRange().getValues();
+    for(let i=1;i&lt;rows.length;i++) {
+      if(rows[i][0]===e.parameter.orderId)
+        return ContentService.createTextOutput(JSON.stringify({
+          orderId:rows[i][0],customer:{name:rows[i][1]},status:rows[i][7]
+        })).setMimeType(ContentService.MimeType.JSON);
+    }
+  }
+  return ContentService.createTextOutput('{}').setMimeType(ContentService.MimeType.JSON);
+}</pre>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h3>Step 3 — Deploy on GitHub Pages (Free Hosting)</h3></div>
+      <div class="card-body">
+        <ol style="padding-left:1.2rem;line-height:2.2;font-size:0.86rem;color:var(--muted);">
+          <li>Create account on <a href="https://github.com" target="_blank" style="color:var(--saf)">github.com</a></li>
+          <li>New Repository → Name: <strong>ambeypooja</strong> → Public</li>
+          <li>Upload all 3 files: <strong>index.html, admin.html, db.js</strong></li>
+          <li>Settings → Pages → Source: main branch → Save</li>
+          <li>Your store is live at <strong>https://yourusername.github.io/ambeypooja</strong> 🎉</li>
+        </ol>
+        <div class="alert" style="background:var(--success-l);color:var(--success);margin-top:0.75rem;">✅ Total monthly cost: ₹0. Only Razorpay 2% per paid order.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /main -->
+</div><!-- /layout -->
+
+<!-- ═══ PRODUCT MODAL ═══ -->
+<div class="modal-overlay" id="product-modal">
+  <div class="modal">
+    <div class="mh"><h3 id="pm-title">Add New Product</h3><button onclick="closeProductModal()">✕</button></div>
+    <div class="mb">
+      <div class="section-divider">Basic Information</div>
+      <div class="fg-row">
+        <div class="fg"><label>Product Name *</label><input id="pm-name" placeholder="e.g. Mitti Diya Pack of 6"/></div>
+        <div class="fg"><label>Category *</label>
+          <select id="pm-cat">
+            <option>Diyas & Lamps</option><option>Flowers & Garlands</option>
+            <option>Incense & Dhoop</option><option>Mala & Beads</option>
+            <option>Pooja Sets</option><option>Sacred Water</option>
+            <option>Daily Pooja</option><option>Festival Items</option>
+          </select>
+        </div>
+      </div>
+      <div class="fg"><label>Description</label><textarea id="pm-desc" placeholder="Describe the product — material, use, occasion..."></textarea></div>
+
+      <div class="section-divider">Pricing & Inventory</div>
+      <div class="fg-row3">
+        <div class="fg"><label>Selling Price (₹) *</label><input type="number" id="pm-price" placeholder="99"/></div>
+        <div class="fg"><label>MRP / Original Price (₹)</label><input type="number" id="pm-mrp" placeholder="129"/></div>
+        <div class="fg"><label>Stock Quantity *</label><input type="number" id="pm-stock" placeholder="10" min="0"/></div>
+      </div>
+      <div class="fg"><label>Emoji Icon (fallback when no image)</label><input id="pm-emoji" placeholder="🪔" style="font-size:1.2rem;width:100px;"/></div>
+
+      <div class="section-divider">Product Images</div>
+      <div class="img-upload-zone" id="img-drop-zone" onclick="document.getElementById('pm-imgs').click()"
+           ondragover="e=>{e.preventDefault();this.classList.add('drag')}"
+           ondragleave="this.classList.remove('drag')"
+           ondrop="handleDrop(event)">
+        <input type="file" id="pm-imgs" multiple accept="image/*" onchange="handleImgSelect(this)"/>
+        <p style="font-size:1.5rem;margin-bottom:0.35rem;">📷</p>
+        <p style="font-size:0.85rem;color:var(--muted);">Click to upload or drag & drop images</p>
+        <p style="font-size:0.72rem;color:var(--muted);margin-top:3px;">JPG, PNG · Max 5MB each · First image = main image</p>
+      </div>
+      <div class="img-preview-grid" id="img-preview-grid"></div>
+
+      <div class="section-divider">Specifications & Dimensions</div>
+      <div class="fg-row">
+        <div class="fg"><label>Weight (e.g. 200g, 1kg)</label><input id="pm-weight" placeholder="200g"/></div>
+        <div class="fg"><label>Size (e.g. 3 inch, Medium)</label><input id="pm-size" placeholder="3 inch diameter"/></div>
+      </div>
+      <div class="fg-row">
+        <div class="fg"><label>Height (e.g. 5cm)</label><input id="pm-height" placeholder="5cm"/></div>
+        <div class="fg"><label>Material</label><input id="pm-material" placeholder="e.g. Pure clay, Brass"/></div>
+      </div>
+      <div class="fg-row">
+        <div class="fg"><label>Dimensions (L × W × H)</label><input id="pm-dims" placeholder="e.g. 7.5cm × 7.5cm × 2cm"/></div>
+        <div class="fg"><label>Color</label><input id="pm-color" placeholder="e.g. Terracotta, Golden"/></div>
+      </div>
+
+      <div class="section-divider">Visibility</div>
+      <label class="toggle-switch" style="margin-bottom:0.75rem;">
+        <input type="checkbox" id="pm-popular"/><span class="toggle-label">Mark as Popular (shows Popular badge)</span>
+      </label><br>
+      <label class="toggle-switch">
+        <input type="checkbox" id="pm-active" checked/><span class="toggle-label">Active (visible on store)</span>
+      </label>
+
+      <div style="display:flex;gap:0.75rem;margin-top:1.25rem;">
+        <button class="btn btn-ghost" onclick="closeProductModal()" style="flex:1;">Cancel</button>
+        <button class="btn btn-saf" onclick="saveProduct()" style="flex:2;">💾 Save Product</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ OFFER MODAL ═══ -->
+<div class="modal-overlay" id="offer-modal">
+  <div class="modal">
+    <div class="mh"><h3>🎉 Create Festival Offer</h3><button onclick="document.getElementById('offer-modal').classList.remove('open')">✕</button></div>
+    <div class="mb">
+      <div class="fg-row">
+        <div class="fg"><label>Offer Name *</label><input id="om-name" placeholder="e.g. Navratri Mahotsav 2025"/></div>
+        <div class="fg"><label>Festival</label>
+          <select id="om-festival">
+            <option>Navratri</option><option>Diwali</option><option>Janmashtami</option>
+            <option>Holi</option><option>Ram Navami</option><option>Ganesh Chaturthi</option>
+            <option>Durga Puja</option><option>Makar Sankranti</option><option>Custom</option>
+          </select>
+        </div>
+      </div>
+      <div class="fg"><label>Subtitle</label><input id="om-subtitle" placeholder="e.g. 9 Nights of Divine Deals"/></div>
+      <div class="fg"><label>Description</label><textarea id="om-desc" placeholder="Describe the offer details..."></textarea></div>
+      <div class="fg-row">
+        <div class="fg"><label>Discount Type</label>
+          <select id="om-dtype"><option value="percent">Percentage (%)</option><option value="flat">Flat Amount (₹)</option></select>
+        </div>
+        <div class="fg"><label>Discount Value</label><input type="number" id="om-dval" placeholder="20"/></div>
+      </div>
+      <div class="fg-row">
+        <div class="fg"><label>Start Date *</label><input type="date" id="om-start"/></div>
+        <div class="fg"><label>End Date *</label><input type="date" id="om-end"/></div>
+      </div>
+      <div class="fg-row">
+        <div class="fg"><label>Banner Color</label><input type="color" id="om-color" value="#C0392B" style="height:38px;padding:2px;"/></div>
+        <div class="fg"><label>Emoji</label><input id="om-emoji" placeholder="🪔" style="font-size:1.2rem;width:80px;"/></div>
+      </div>
+      <div class="fg"><label>Apply To</label>
+        <select id="om-apply"><option value="all">All Products</option><option value="specific">Specific Products</option></select>
+      </div>
+      <label class="toggle-switch" style="margin-bottom:1rem;margin-top:0.5rem;">
+        <input type="checkbox" id="om-active" checked/><span class="toggle-label">Active (live on store)</span>
+      </label>
+      <div style="display:flex;gap:0.75rem;">
+        <button class="btn btn-ghost" onclick="document.getElementById('offer-modal').classList.remove('open')" style="flex:1;">Cancel</button>
+        <button class="btn btn-saf" onclick="saveOffer()" style="flex:2;">🎉 Create Offer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="db.js"></script>
+<script>
+// ── STATE ──
+let editingProductId = null;
+let uploadedImages = []; // base64 strings
+
+// ── PAGE NAV ──
+function showPage(id, el) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('show'));
+  document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('show');
+  if(el) el.classList.add('active');
+  // Refresh data when page opens
+  const renders = {dashboard:renderDashboard,products:renderProducts,inventory:renderInventory,orders:renderOrders,offers:renderOffers,feedback:renderFeedback,settings:loadSettings};
+  if(renders[id]) renders[id]();
+}
+
+// ── DASHBOARD ──
+function renderDashboard() {
+  const orders = DB.getOrders();
+  const products = DB.getProducts();
+  const revenue = orders.reduce((s,o)=>s+o.total,0);
+  const pending = orders.filter(o=>['Placed','Packing','Out for Delivery'].includes(o.status)).length;
+  const feedback = DB.getFeedback();
+  const avgRating = feedback.length ? (feedback.reduce((s,f)=>s+f.rating,0)/feedback.length).toFixed(1) : '—';
+
+  document.getElementById('dash-metrics').innerHTML = `
+    <div class="mc saf"><div class="mc-icon">📋</div><div class="mc-val">${orders.length}</div><div class="mc-label">Total Orders</div><span class="mc-badge ok">Today: ${orders.filter(o=>o.createdAt?.startsWith(new Date().toISOString().slice(0,10))).length}</span></div>
+    <div class="mc mar"><div class="mc-icon">💰</div><div class="mc-val">₹${revenue.toLocaleString()}</div><div class="mc-label">Total Revenue</div><span class="mc-badge ok">All time</span></div>
+    <div class="mc success"><div class="mc-icon">🏍️</div><div class="mc-val">${pending}</div><div class="mc-label">Pending Orders</div><span class="mc-badge ${pending>0?'warn':'ok'}">${pending>0?'Action needed':'All clear'}</span></div>
+    <div class="mc gold"><div class="mc-icon">⭐</div><div class="mc-val">${avgRating}</div><div class="mc-label">Avg Rating</div><span class="mc-badge ok">${feedback.length} reviews</span></div>
+  `;
+
+  document.getElementById('dash-orders-table').innerHTML = buildOrdersRows(orders.slice(0,5));
+
+  const lowStock = products.filter(p=>p.stock<=3&&p.active);
+  document.getElementById('low-stock-list').innerHTML = lowStock.length
+    ? lowStock.map(p=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:0.4rem 0;border-bottom:1px solid var(--border);font-size:0.82rem;">
+        <span>${p.emoji} ${p.name}</span>
+        <span class="pill ${p.stock===0?'pill-Cancelled':'pill-Packing'}">${p.stock===0?'SOLD OUT':p.stock+' left'}</span>
+      </div>`).join('')
+    : '<p style="color:var(--muted);font-size:0.82rem;">✅ All products have sufficient stock</p>';
+
+  const activeOff = DB.getActiveOffer();
+  document.getElementById('active-offers-list').innerHTML = activeOff
+    ? `<div style="font-size:0.85rem;"><b>${activeOff.emoji} ${activeOff.name}</b><br><span style="color:var(--muted)">${activeOff.discountValue}${activeOff.discountType==='percent'?'%':'₹'} OFF · Till ${new Date(activeOff.endDate).toLocaleDateString('en-IN')}</span></div>`
+    : '<p style="color:var(--muted);font-size:0.82rem;">No active offer right now</p>';
+
+  // sidebar badges
+  document.getElementById('sb-prod-count').textContent = products.length;
+  document.getElementById('sb-order-badge').textContent = pending;
+  document.getElementById('sb-fb-badge').textContent = DB.getFeedback().filter(f=>!f.approved).length;
+}
+
+// ── PRODUCTS ──
+function renderProducts() {
+  const products = DB.getProducts();
+  document.getElementById('sb-prod-count').textContent = products.length;
+  document.getElementById('products-table').innerHTML = `
+    <thead><tr><th>Image</th><th>Product</th><th>Category</th><th>Price</th><th>MRP</th><th>Stock</th><th>Status</th><th>Actions</th></tr></thead>
+    <tbody>${products.map(p=>{
+      const imgEl = p.images&&p.images[0]
+        ? `<img src="${p.images[0]}" style="width:40px;height:40px;object-fit:cover;border-radius:6px;border:1px solid var(--border);">`
+        : `<span style="font-size:1.6rem;">${p.emoji}</span>`;
+      return `<tr>
+        <td>${imgEl}</td>
+        <td><b style="font-size:0.85rem;">${p.name}</b><br><span style="font-size:0.72rem;color:var(--muted);">${p.description?.substring(0,50)||''}...</span></td>
+        <td>${p.category}</td>
+        <td><b style="color:var(--mar)">₹${p.price}</b></td>
+        <td>${p.mrp?'₹'+p.mrp:'—'}</td>
+        <td><span class="pill ${p.stock===0?'pill-Cancelled':p.stock<=3?'pill-Packing':'pill-Delivered'}">${p.stock===0?'Sold Out':p.stock+' in stock'}</span></td>
+        <td><span class="pill ${p.active?'pill-active':'pill-inactive'}">${p.active?'Active':'Hidden'}</span></td>
+        <td style="white-space:nowrap;">
+          <button class="btn btn-ghost btn-sm" onclick="openProductModal('${p.id}')">✏️ Edit</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteProduct('${p.id}')">🗑️</button>
+        </td>
+      </tr>`;
+    }).join('')}</tbody>`;
+}
+
+// ── INVENTORY ──
+function renderInventory() {
+  const products = DB.getProducts();
+  document.getElementById('inv-table').innerHTML = `
+    <thead><tr><th>Product</th><th>Category</th><th>Price</th><th>Current Stock</th><th>Sold</th><th>Stock Level</th><th>Update Stock</th></tr></thead>
+    <tbody>${products.map(p=>{
+      const total = p.stock + (p.sold||0);
+      const pct = total>0 ? Math.round((p.stock/total)*100) : 0;
+      const color = p.stock===0?'var(--danger)':p.stock<=3?'#E8920A':'var(--success)';
+      return `<tr>
+        <td><span style="font-size:1.3rem">${p.emoji}</span> <b style="font-size:0.85rem">${p.name}</b></td>
+        <td><span style="font-size:0.78rem;color:var(--muted)">${p.category}</span></td>
+        <td>₹${p.price}</td>
+        <td><b style="color:${color};font-size:0.95rem">${p.stock}</b></td>
+        <td><span style="color:var(--muted)">${p.sold||0}</span></td>
+        <td style="min-width:120px;">
+          <div class="inv-bar-wrap">
+            <div style="font-size:0.7rem;color:${color}">${p.stock===0?'SOLD OUT':p.stock<=3?'LOW STOCK':'IN STOCK'}</div>
+            <div class="inv-bar-track"><div class="inv-bar-fill" style="width:${pct}%;background:${color}"></div></div>
+          </div>
+        </td>
+        <td>
+          <div class="inv-edit-row">
+            <button class="btn btn-ghost btn-sm" onclick="adjustStock('${p.id}',-1)" style="padding:3px 8px;">−</button>
+            <input class="inv-input" type="number" value="${p.stock}" min="0" onchange="setStock('${p.id}',+this.value)" id="si-${p.id}"/>
+            <button class="btn btn-ghost btn-sm" onclick="adjustStock('${p.id}',1)" style="padding:3px 8px;">+</button>
+            <button class="btn btn-success btn-sm" onclick="restockProduct('${p.id}')">📦 Restock</button>
+          </div>
+        </td>
+      </tr>`;
+    }).join('')}</tbody>`;
+}
+
+function adjustStock(id, delta) {
+  const input = document.getElementById('si-'+id);
+  const newVal = Math.max(0, parseInt(input.value||0) + delta);
+  input.value = newVal;
+  setStock(id, newVal);
+}
+
+function setStock(id, qty) {
+  DB.updateProduct(id, {stock:qty});
+  renderInventory();
+  showToast('✅ Stock updated');
+}
+
+function restockProduct(id) {
+  const p = DB.getProduct(id);
+  const qty = parseInt(prompt(`Restock "${p.name}"\nEnter quantity to add (current: ${p.stock}):`, '10'));
+  if(isNaN(qty)||qty<1) return;
+  DB.updateProduct(id, {stock: p.stock + qty});
+  renderInventory();
+  showToast(`📦 Added ${qty} units to ${p.name}`);
+}
+
+// ── ORDERS ──
+function renderOrders() {
+  const orders = DB.getOrders();
+  document.getElementById('orders-table').innerHTML = `
+    <thead><tr><th>Order ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Offer</th><th>Status</th><th>Date</th></tr></thead>
+    <tbody>${buildOrdersRows(orders)}</tbody>`;
+}
+
+function buildOrdersRows(orders) {
+  if(!orders.length) return '<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:2rem;">No orders yet</td></tr>';
+  return orders.map(o=>`<tr>
+    <td><b style="font-size:0.83rem">${o.id}</b></td>
+    <td>${o.customer?.name||'—'}<br><small style="color:var(--muted)">${o.customer?.phone||''}</small></td>
+    <td style="max-width:160px;"><small style="color:var(--muted)">${(o.items||[]).map(i=>i.name+' ×'+i.qty).join(', ').substring(0,60)+'...'}</small></td>
+    <td><b style="color:var(--mar)">₹${o.total}</b></td>
+    <td><small style="color:var(--success)">${o.offerApplied||'—'}</small></td>
+    <td><select class="status-sel" onchange="updateOrderStatus('${o.id}',this.value)">
+      ${['Placed','Packing','Out for Delivery','Delivered','Cancelled'].map(s=>`<option${s===o.status?' selected':''}>${s}</option>`).join('')}
+    </select></td>
+    <td><small style="color:var(--muted)">${o.createdAt?new Date(o.createdAt).toLocaleDateString('en-IN'):'-'}</small></td>
+  </tr>`).join('');
+}
+
+function updateOrderStatus(id, status) {
+  DB.updateOrderStatus(id, status);
+  // Push to sheets
+  const url=DB.getSettings().sheetsUrl;
+  if(url&&!url.includes('XXXX')){
+    fetch(url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'updateStatus',orderId:id,status})}).catch(()=>{});
+  }
+  showToast(`✅ ${id} → ${status}`);
+}
+
+// ── OFFERS ──
+function renderOffers() {
+  const offers = DB.getOffers();
+  const div = document.getElementById('offers-list');
+  if(!offers.length){div.innerHTML='<p style="color:var(--muted)">No offers created yet. Click "+ Create Offer" to add one.</p>';return;}
+  div.innerHTML = offers.map(o=>{
+    const now=new Date(), start=new Date(o.startDate), end=new Date(o.endDate);
+    const status = !o.active?'Inactive':now<start?'Scheduled':now>end?'Expired':'Live';
+    const statusColor = {Live:'var(--success)',Scheduled:'var(--info)',Expired:'var(--muted)',Inactive:'var(--danger)'}[status];
+    return `<div class="offer-card-admin">
+      <div class="oca-header" style="background:${o.bannerColor}15;">
+        <span class="oca-emoji">${o.emoji}</span>
+        <div class="oca-info">
+          <div class="oca-name">${o.name}</div>
+          <div class="oca-dates" style="color:var(--muted)">${o.festival} · ${new Date(o.startDate).toLocaleDateString('en-IN')} – ${new Date(o.endDate).toLocaleDateString('en-IN')}</div>
+          <div style="margin-top:4px;"><span class="pill" style="background:${statusColor}20;color:${statusColor}">⬤ ${status}</span>
+          <span style="font-size:0.78rem;color:var(--muted);margin-left:8px;">${o.discountValue}${o.discountType==='percent'?'%':'₹'} OFF · Applies to: ${o.applyTo==='all'?'All Products':'Selected Products'}</span></div>
+        </div>
+        <div class="oca-actions">
+          <button class="btn btn-ghost btn-sm" onclick="toggleOffer('${o.id}',${!o.active})">${o.active?'Pause':'Activate'}</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteOffer('${o.id}')">🗑️</button>
+        </div>
+      </div>
+      <div class="oca-body"><span class="oca-stat">${o.description}</span></div>
+    </div>`;
+  }).join('');
+}
+
+function openOfferModal() {
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('om-start').value = today;
+  document.getElementById('om-end').value = new Date(Date.now()+7*86400000).toISOString().split('T')[0];
+  document.getElementById('offer-modal').classList.add('open');
+}
+
+function saveOffer() {
+  const name=document.getElementById('om-name').value.trim();
+  if(!name){showToast('⚠️ Enter offer name');return;}
+  DB.addOffer({
+    name, festival:document.getElementById('om-festival').value,
+    subtitle:document.getElementById('om-subtitle').value,
+    description:document.getElementById('om-desc').value,
+    discountType:document.getElementById('om-dtype').value,
+    discountValue:+document.getElementById('om-dval').value,
+    startDate:document.getElementById('om-start').value,
+    endDate:document.getElementById('om-end').value,
+    bannerColor:document.getElementById('om-color').value,
+    emoji:document.getElementById('om-emoji').value||'🎉',
+    active:document.getElementById('om-active').checked,
+    applyTo:document.getElementById('om-apply').value,
+    productIds:[],
+  });
+  document.getElementById('offer-modal').classList.remove('open');
+  renderOffers();
+  showToast('🎉 Offer created!');
+}
+
+function toggleOffer(id, active) { DB.updateOffer(id,{active}); renderOffers(); showToast(active?'✅ Offer activated':'⏸️ Offer paused'); }
+function deleteOffer(id) { if(confirm('Delete this offer?')){DB.deleteOffer(id);renderOffers();showToast('🗑️ Offer deleted');} }
+
+// ── FEEDBACK ──
+function renderFeedback() {
+  const all = DB.getFeedback();
+  document.getElementById('sb-fb-badge').textContent = all.filter(f=>!f.approved).length;
+  const div = document.getElementById('feedback-list');
+  if(!all.length){div.innerHTML='<p style="color:var(--muted)">No feedback yet.</p>';return;}
+  div.innerHTML = all.map(f=>`
+    <div class="fb-card">
+      <div class="fb-head">
+        <div><div class="fb-name">${f.name} ${f.orderId?'<small style="color:var(--muted)">· '+f.orderId+'</small>':''}</div>
+          <div class="fb-stars">${'★'.repeat(f.rating)}${'☆'.repeat(5-f.rating)}</div></div>
+        <div style="text-align:right;">
+          <div class="fb-time">${f.createdAt?new Date(f.createdAt).toLocaleDateString('en-IN'):''}</div>
+          <span class="pill ${f.approved?'pill-active':'pill-Packing'}" style="margin-top:4px;">${f.approved?'✓ Approved':'Pending'}</span>
+        </div>
+      </div>
+      <div class="fb-msg">"${f.message}"</div>
+      <div class="fb-actions">
+        ${!f.approved?`<button class="btn btn-success btn-sm" onclick="approveFb('${f.id}')">✓ Approve & Show on Store</button>`:'<span style="color:var(--success);font-size:0.78rem;">✓ Visible on store</span>'}
+        <button class="btn btn-danger btn-sm" onclick="deleteFb('${f.id}')">🗑️ Delete</button>
+      </div>
+    </div>`).join('');
+}
+
+function approveFb(id){DB.approveFeedback(id);renderFeedback();showToast('✅ Review approved & visible on store');}
+function deleteFb(id){if(confirm('Delete this review?')){DB.deleteFeedback(id);renderFeedback();showToast('🗑️ Deleted');}}
+
+// ── PRODUCT MODAL ──
+function openProductModal(editId=null) {
+  editingProductId = editId;
+  uploadedImages = [];
+  document.getElementById('img-preview-grid').innerHTML='';
+  document.getElementById('pm-title').textContent = editId ? 'Edit Product' : 'Add New Product';
+  const fields=['pm-name','pm-cat','pm-desc','pm-price','pm-mrp','pm-stock','pm-emoji','pm-weight','pm-size','pm-height','pm-material','pm-dims','pm-color'];
+  fields.forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('pm-popular').checked=false;
+  document.getElementById('pm-active').checked=true;
+
+  if(editId){
+    const p = DB.getProduct(editId);
+    if(!p) return;
+    document.getElementById('pm-name').value=p.name||'';
+    document.getElementById('pm-cat').value=p.category||'Diyas & Lamps';
+    document.getElementById('pm-desc').value=p.description||'';
+    document.getElementById('pm-price').value=p.price||'';
+    document.getElementById('pm-mrp').value=p.mrp||'';
+    document.getElementById('pm-stock').value=p.stock||0;
+    document.getElementById('pm-emoji').value=p.emoji||'🪔';
+    document.getElementById('pm-weight').value=p.weight||'';
+    document.getElementById('pm-size').value=p.size||'';
+    document.getElementById('pm-height').value=p.height||'';
+    document.getElementById('pm-material').value=p.material||'';
+    document.getElementById('pm-dims').value=p.dimensions||'';
+    document.getElementById('pm-color').value=p.color||'';
+    document.getElementById('pm-popular').checked=!!p.popular;
+    document.getElementById('pm-active').checked=p.active!==false;
+    uploadedImages = p.images||[];
+    renderImgPreviews();
+  }
+  document.getElementById('product-modal').classList.add('open');
+}
+
+function closeProductModal(){ document.getElementById('product-modal').classList.remove('open'); editingProductId=null; uploadedImages=[]; }
+
+function handleImgSelect(input) {
+  Array.from(input.files).forEach(file=>{
+    if(file.size>5*1024*1024){showToast('⚠️ Image must be under 5MB');return;}
+    const r=new FileReader();
+    r.onload=e=>{uploadedImages.push(e.target.result);renderImgPreviews();};
+    r.readAsDataURL(file);
+  });
+}
+
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('img-drop-zone').classList.remove('drag');
+  Array.from(e.dataTransfer.files).filter(f=>f.type.startsWith('image/')).forEach(file=>{
+    const r=new FileReader();
+    r.onload=ev=>{uploadedImages.push(ev.target.result);renderImgPreviews();};
+    r.readAsDataURL(file);
+  });
+}
+
+function renderImgPreviews() {
+  document.getElementById('img-preview-grid').innerHTML = uploadedImages.map((src,i)=>`
+    <div class="img-thumb">
+      <img src="${src}" alt="img ${i+1}"/>
+      <button class="rm-img" onclick="uploadedImages.splice(${i},1);renderImgPreviews()">✕</button>
+    </div>`).join('');
+}
+
+function saveProduct() {
+  const name=document.getElementById('pm-name').value.trim();
+  const price=+document.getElementById('pm-price').value;
+  const stock=+document.getElementById('pm-stock').value;
+  if(!name){showToast('⚠️ Product name is required');return;}
+  if(!price||price<1){showToast('⚠️ Enter a valid price');return;}
+  if(isNaN(stock)||stock<0){showToast('⚠️ Enter valid stock quantity');return;}
+
+  const data={
+    name,
+    category:document.getElementById('pm-cat').value,
+    description:document.getElementById('pm-desc').value,
+    price,mrp:+document.getElementById('pm-mrp').value||price,
+    stock,
+    emoji:document.getElementById('pm-emoji').value||'🛕',
+    weight:document.getElementById('pm-weight').value,
+    size:document.getElementById('pm-size').value,
+    height:document.getElementById('pm-height').value,
+    material:document.getElementById('pm-material').value,
+    dimensions:document.getElementById('pm-dims').value,
+    color:document.getElementById('pm-color').value,
+    popular:document.getElementById('pm-popular').checked,
+    active:document.getElementById('pm-active').checked,
+    images:uploadedImages,
+  };
+
+  if(editingProductId){ DB.updateProduct(editingProductId,data); showToast('✅ Product updated!'); }
+  else { DB.addProduct(data); showToast('✅ Product added to store!'); }
+
+  closeProductModal();
+  renderProducts();
+}
+
+function deleteProduct(id) {
+  if(!confirm('Delete this product permanently?')) return;
+  DB.deleteProduct(id);
+  renderProducts();
+  showToast('🗑️ Product deleted');
+}
+
+function resetProducts() { localStorage.removeItem('aps_products'); DB._seedProducts(); renderProducts(); showToast('🔄 Products reset to demo data'); }
+
+// ── SETTINGS ──
+function loadSettings(){
+  const s=DB.getSettings();
+  document.getElementById('s-name').value=s.storeName||'';
+  document.getElementById('s-tagline').value=s.tagline||'';
+  document.getElementById('s-address').value=s.address||'';
+  document.getElementById('s-hours').value=s.hours||'';
+  document.getElementById('s-wa').value=s.whatsapp||'';
+  document.getElementById('s-upi').value=s.upiId||'';
+  document.getElementById('s-rzp').value=s.razorpayKey||'';
+  document.getElementById('s-sheets').value=s.sheetsUrl||'';
+  document.getElementById('s-del-charge').value=s.deliveryCharge||30;
+  document.getElementById('s-del-free').value=s.deliveryFree||399;
+  document.getElementById('s-del-radius').value=s.deliveryRadius||'5 km';
+}
+
+function saveSettingsSection(section) {
+  const s=DB.getSettings();
+  if(section==='store'){Object.assign(s,{storeName:document.getElementById('s-name').value,tagline:document.getElementById('s-tagline').value,address:document.getElementById('s-address').value,hours:document.getElementById('s-hours').value});}
+  if(section==='payment'){Object.assign(s,{whatsapp:document.getElementById('s-wa').value,upiId:document.getElementById('s-upi').value,razorpayKey:document.getElementById('s-rzp').value,sheetsUrl:document.getElementById('s-sheets').value});}
+  if(section==='delivery'){Object.assign(s,{deliveryCharge:+document.getElementById('s-del-charge').value,deliveryFree:+document.getElementById('s-del-free').value,deliveryRadius:document.getElementById('s-del-radius').value});}
+  DB.saveSettings(s);
+  showToast('✅ Settings saved!');
+}
+
+// ── UTILS ──
+function filterTable(tableId, q) {
+  document.querySelectorAll(`#${tableId} tbody tr`).forEach(r=>{
+    r.style.display=r.textContent.toLowerCase().includes(q.toLowerCase())?'':'none';
+  });
+}
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// ── INIT ──
+renderDashboard();
+</script>
+</body>
+</html>
