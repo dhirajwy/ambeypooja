@@ -112,7 +112,15 @@ const DB = {
   deleteFeedback(id)  { this.set(this.KEYS.feedback, this.getFeedback().filter(f=>f.id!==id)); },
 
   // ── settings ──────────────────────────────────────────
-  getSettings()  { return this.get(this.KEYS.settings) || this._defaultSettings(); },
+  getSettings()  {
+    const s = this.get(this.KEYS.settings);
+    if (!s || (s._v||0) < 2) {
+      const fresh = this._defaultSettings();
+      this.saveSettings(fresh);
+      return fresh;
+    }
+    return s;
+  },
   saveSettings(s){ this.set(this.KEYS.settings, s); },
 
   // ── cart ──────────────────────────────────────────────
@@ -122,10 +130,11 @@ const DB = {
   // ── SEEDS ─────────────────────────────────────────────
   _defaultSettings() {
     return {
+      _v:           2,
       storeName:    'Ambey Pooja Store',
       tagline:      'Devotion Delivered to Your Doorstep',
-      phone:        '9999999999',
-      whatsapp:     '919999999999',
+      phone:        '9318388626',
+      whatsapp:     '919318388626',
       address:      'Green Field Colony, Faridabad, Haryana',
       deliveryRadius:'5 km',
       hours:        '6:00 AM – 9:00 PM, All Days',
